@@ -84,11 +84,17 @@
     }
 
     .usecase-grid{
-      display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px
     }
+    .uc-group{
+      border:1px solid #E1E6EB;border-radius:20px;padding:12px;background:#fff
+    }
+    .uc-group h4{margin:0 0 4px;font-size:14px;letter-spacing:-.01em}
+    .uc-group .group-note{margin:0 0 10px;color:var(--muted);font-size:11px;line-height:1.45}
+    .uc-group-list{display:grid;gap:10px}
     .uc-card{
-      border:1px solid #E1E6EB;border-radius:18px;padding:14px;background:#FCFCFC;cursor:pointer;text-align:left;
-      transition:.18s ease;min-height:170px
+      width:100%;border:1px solid #E1E6EB;border-radius:18px;padding:14px;background:#FCFCFC;cursor:pointer;text-align:left;
+      transition:.18s ease;min-height:164px
     }
     .uc-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(23,32,40,.08)}
     .uc-card.active{border-color:#F0B391;background:var(--cream);box-shadow:inset 0 0 0 1px #FFD3BF}
@@ -251,7 +257,7 @@
 
     @media(max-width:1100px){
       .hero,.prototype,.grid-2,.doc-grid,.monitor-grid,.demo-panel{grid-template-columns:1fr}
-      .usecase-grid{grid-template-columns:repeat(2,1fr)}
+      .usecase-grid{grid-template-columns:1fr}
       .side{position:static;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
       .side-label{display:none}
       .navbtn{justify-content:center;padding:10px 6px;font-size:11px;text-align:center;flex-direction:column;gap:5px}
@@ -291,20 +297,6 @@
     <div class="status-pill"><span class="dot"></span> Prototype ready for demo</div>
   </header>
 
-  <section class="hero">
-    <div>
-      <div class="eyebrow">Toyota Social Innovation</div>
-      <h2>จาก LINE Chat สู่ระบบให้คำปรึกษาธุรกิจที่ตรวจสอบได้</h2>
-      <p>ต้นแบบนี้จำลองประสบการณ์ใช้งาน 4 ชั้น ตั้งแต่การสนทนากับผู้ประกอบการ การประมวลผลของ AI การค้นหาจากเอกสาร TSI และการกำกับดูแลผ่าน Monitoring Dashboard พร้อมเพิ่ม 5 Use Case Demo เพื่อใช้ Pitch หรือ Present เส้นทางการใช้งานจริงของ MiAi</p>
-    </div>
-    <div class="hero-card">
-      <div class="metric"><span>Knowledge Scope</span><b>TSI Only</b></div>
-      <div class="metric"><span>Service Mode</span><b>24/7</b></div>
-      <div class="metric"><span>Fallback Rule</span><b>No Guess</b></div>
-      <div class="metric"><span>Traceability</span><b>Full Log</b></div>
-    </div>
-  </section>
-
   <section class="usecase-wrap" id="usecases">
     <div class="section-title">
       <div>
@@ -315,36 +307,57 @@
     </div>
 
     <div class="usecase-grid" id="usecaseGrid">
-      <button class="uc-card active" data-key="ask">
-        <div class="uc-no">01</div>
-        <span class="uc-option">Option 1 + 2</span>
-        <b>Ask MiAi</b>
-        <p>ผู้ประกอบการถามปัญหา และ AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง</p>
-      </button>
-      <button class="uc-card" data-key="diagnose">
-        <div class="uc-no">02</div>
-        <span class="uc-option">Option 2</span>
-        <b>Diagnose My Business</b>
-        <p>AI ถาม 5–7 คำถาม และสรุป Business Health Card</p>
-      </button>
-      <button class="uc-card" data-key="mission">
-        <div class="uc-no">03</div>
-        <span class="uc-option">Option 2</span>
-        <b>Start Improvement Mission</b>
-        <p>สร้างภารกิจ 7 วัน เพื่อเริ่มเปลี่ยนแปลงแบบเล็กแต่ทำได้จริง</p>
-      </button>
-      <button class="uc-card" data-key="similar">
-        <div class="uc-no">04</div>
-        <span class="uc-option">Future Roadmap</span>
-        <b>Learn from Similar Business</b>
-        <p>แนะนำ case study หรือศูนย์เรียนรู้ที่ใกล้เคียงกับบริบทธุรกิจ</p>
-      </button>
-      <button class="uc-card" data-key="connect">
-        <div class="uc-no">05</div>
-        <span class="uc-option">Option 1 + 2</span>
-        <b>Connect to TSI</b>
-        <p>เมื่อประเมินว่าต้องการความช่วยเหลือเชิงลึก ระบบพาไปสู่บริการของ TSI</p>
-      </button>
+      <div class="uc-group">
+        <h4>Option 1 Demo Path</h4>
+        <p class="group-note">Lean launch: prove trusted answers and LINE next action.</p>
+        <div class="uc-group-list">
+          <button class="uc-card active" data-key="ask">
+            <div class="uc-no">01</div>
+            <b>Ask MiAi</b>
+            <p>ผู้ประกอบการถามปัญหา และ AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง</p>
+          </button>
+          <button class="uc-card" data-key="connect">
+            <div class="uc-no">05</div>
+            <b>Connect to TSI</b>
+            <p>เมื่อประเมินว่าต้องการความช่วยเหลือเชิงลึก ระบบพาไปสู่บริการของ TSI</p>
+          </button>
+        </div>
+      </div>
+      <div class="uc-group">
+        <h4>Option 2 Demo Path</h4>
+        <p class="group-note">Recommended launch: add Zone 2 starter personalization.</p>
+        <div class="uc-group-list">
+          <button class="uc-card active" data-key="ask">
+            <div class="uc-no">01</div>
+            <b>Ask MiAi</b>
+            <p>เริ่มจากคำถามธุรกิจ เพื่อโชว์ trusted Q&amp;A ก่อนต่อยอดเข้า Zone 2</p>
+          </button>
+          <button class="uc-card" data-key="diagnose">
+            <div class="uc-no">02</div>
+            <span class="uc-option">Option 2</span>
+            <b>Diagnose My Business</b>
+            <p>AI ถาม 5–7 คำถาม และสรุป Business Health Card</p>
+          </button>
+          <button class="uc-card" data-key="mission">
+            <div class="uc-no">03</div>
+            <span class="uc-option">Option 2</span>
+            <b>Start Improvement Mission</b>
+            <p>สร้างภารกิจ 7 วัน เพื่อเริ่มเปลี่ยนแปลงแบบเล็กแต่ทำได้จริง</p>
+          </button>
+        </div>
+      </div>
+      <div class="uc-group">
+        <h4>Future Roadmap</h4>
+        <p class="group-note">Keep advanced ecosystem flows outside launch options.</p>
+        <div class="uc-group-list">
+          <button class="uc-card" data-key="similar">
+            <div class="uc-no">04</div>
+            <span class="uc-option">Future Roadmap</span>
+            <b>Learn from Similar Business</b>
+            <p>แนะนำ case study หรือศูนย์เรียนรู้ที่ใกล้เคียงกับบริบทธุรกิจ</p>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="demo-panel">
@@ -535,7 +548,7 @@
     ask: {
       title: "Use Case 1: Ask MiAi",
       desc: "ผู้ประกอบการถามปัญหา → AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง",
-      tags: ["Option 1 + 2", "Entry via LINE OA", "Citation in Answer", "Fast Q&A", "Low-friction Start"],
+      tags: ["Entry via LINE OA", "Citation in Answer", "Fast Q&A", "Low-friction Start"],
       journey: [
         ["Step 1","User asks","พิมพ์คำถามธุรกิจ เช่น ยอดขายตก ลูกค้าหาย ต้นทุนสูง"],
         ["Step 2","AI retrieves","ค้นหาเนื้อหาที่เกี่ยวข้องจาก TSI Way และเอกสารอนุมัติ"],
@@ -607,7 +620,7 @@
     connect: {
       title: "Use Case 5: Connect to TSI",
       desc: "เมื่อ AI ประเมินว่าต้องการความช่วยเหลือเชิงลึก → สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญได้ทันที",
-      tags: ["Option 1 + 2", "Lead Qualification", "Project Enrollment", "LINE Next Action"],
+      tags: ["Lead Qualification", "Project Enrollment", "LINE Next Action"],
       journey: [
         ["Step 1","Detect need","AI พบว่าผู้ใช้ต้องการการช่วยเหลือเชิงลึกกว่าคำแนะนำทั่วไป"],
         ["Step 2","Offer paths","แสดงทางเลือก สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญ"],

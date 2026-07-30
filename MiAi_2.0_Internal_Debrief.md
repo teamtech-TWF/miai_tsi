@@ -369,11 +369,11 @@ Advanced personalization, LINE MINI App, CRM, booking, campaign automation, comm
 
 ### Use Case Demo by Option
 
-| Option | Demo Use Cases | Demo Message |
-|---|---|---|
-| Option 1 — Lean Required Launch | Use Case 1: Ask MiAi; Use Case 5: Connect to TSI | Show core Q&A from TSI knowledge, source reference, fallback, and LINE OA next action |
-| Option 2 — Recommended Production Launch | Use Case 1: Ask MiAi; Use Case 2: Diagnose My Business; Use Case 3: Start Improvement Mission | Show trusted Q&A plus Zone 2 starter business profile, guided prompts, and simple personalized recommendation |
-| Future Roadmap | Use Case 4: Learn from Similar Business; advanced Connect to TSI flows | Keep case matching, MINI App, CRM, booking, campaign, community, and BI outside immediate launch demo |
+| Option | Included Zones | Demo Sequence | What This Proves |
+|---|---|---|---|
+| Option 1 — Lean Required Launch | Zone 1 Core AI Q&A + Zone 3 LINE OA Essentials | 1. Ask MiAi → 5. Connect to TSI | Trusted Q&A, source reference, fallback, and LINE next action |
+| Option 2 — Recommended Production Launch | Zone 1 Trusted AI + Zone 2 Starter Assistant + Zone 3 LINE OA Experience | 1. Ask MiAi → 2. Diagnose My Business → 3. Start Improvement Mission | Starter personalization through business profile, guided prompts, and simple recommendation |
+| Future Roadmap | Advanced Zone 2 + expanded Zone 3 | 4. Learn from Similar Business; advanced Connect to TSI flows | Case matching, MINI App, CRM, booking, campaign, community, and BI stay outside immediate launch |
 
 ### Phase Cost Reference
 

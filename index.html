@@ -178,10 +178,12 @@
       background:#fff
     }
     .demo-option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
-    .demo-option{padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.86);border:1px solid rgba(95,127,153,.14)}
+    .demo-option{padding:18px;border-radius:20px;background:rgba(255,255,255,.88);border:1px solid rgba(95,127,153,.14)}
     .demo-option strong{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--navy);font-size:17px}
     .demo-option strong span{color:var(--orange);font-size:13px;font-weight:900}
-    .demo-option p{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.5}
+    .demo-option .zone-line{margin-top:10px;color:var(--navy);font-size:13px;line-height:1.45;font-weight:900}
+    .demo-option ol{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.55}
+    .demo-option p{margin-top:12px;color:#6d503c;font-size:13px;line-height:1.5;font-weight:800}
     .quote{font-size:clamp(26px,5vw,52px);line-height:1.08;color:var(--navy);font-weight:900;letter-spacing:-.035em}.quote small{display:block;font-size:clamp(16px,2vw,24px);line-height:1.4;color:#53687b;font-weight:700;margin-top:16px;letter-spacing:0}.cta{display:inline-flex;margin-top:28px;background:linear-gradient(135deg,var(--orange),#ff9b54);color:#fff;padding:14px 18px;border-radius:999px;font-weight:900;box-shadow:0 16px 36px rgba(242,101,34,.22)}
     .controls{position:fixed;z-index:20;right:18px;bottom:18px;transform:none;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);padding:8px 10px;border-radius:999px;box-shadow:0 18px 50px rgba(39,63,87,.18);backdrop-filter:blur(14px)}.controls button{border:0;background:#fff;color:var(--navy);width:42px;height:42px;border-radius:50%;font-size:19px;font-weight:900;cursor:pointer}.controls button:hover{background:var(--orange);color:#fff}.counter{font-size:13px;font-weight:900;color:#64778a;min-width:52px;text-align:center}.progress{position:fixed;z-index:21;left:0;top:0;height:5px;background:linear-gradient(90deg,var(--orange),#ffb06c);width:0%}
     @media (min-width:820px){
@@ -280,12 +282,23 @@
           <p class="plan-intro">ใช้สไลด์นี้เป็น demo map ก่อนเปิด prototype: Option 1 แสดง lean launch flow ส่วน Option 2 เพิ่ม starter personalization ผ่าน Zone 2</p>
           <div class="demo-option-grid">
             <div class="demo-option">
-              <strong>Option 1 — Lean Required Launch <span>850K THB</span></strong>
-              <p>Demo Use Case 1: Ask MiAi และ Use Case 5: Connect to TSI เพื่อโชว์ Q&amp;A จาก TSI Knowledge, source reference, fallback และ LINE OA next action</p>
+              <strong>Option 1 — Lean Required Launch</strong>
+              <div class="zone-line">Zone 1 Core AI Q&amp;A + Zone 3 LINE OA Essentials</div>
+              <ol>
+                <li>Use Case 1: Ask MiAi</li>
+                <li>Use Case 5: Connect to TSI</li>
+              </ol>
+              <p>Proves trusted Q&amp;A, source reference, fallback, and LINE next action.</p>
             </div>
             <div class="demo-option">
-              <strong>Option 2 — Recommended Production Launch <span>1.2M THB</span></strong>
-              <p>Demo Use Case 1, 2 และ 3 เพื่อโชว์ Trusted AI Q&amp;A พร้อม Zone 2 starter profile, guided prompts และ simple personalized recommendation</p>
+              <strong>Option 2 — Recommended Production Launch</strong>
+              <div class="zone-line">Zone 1 Trusted AI + Zone 2 Starter Assistant + Zone 3 LINE Experience</div>
+              <ol>
+                <li>Use Case 1: Ask MiAi</li>
+                <li>Use Case 2: Diagnose My Business</li>
+                <li>Use Case 3: Start Improvement Mission</li>
+              </ol>
+              <p>Proves starter personalization with business profile, guided prompts, and simple recommendation.</p>
             </div>
           </div>
         </div>
