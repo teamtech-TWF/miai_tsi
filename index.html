@@ -127,13 +127,20 @@
     .phase-num{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--orange-2));color:#fff;font-size:18px;font-weight:900}
     .phase-head strong{display:block;color:var(--navy);font-size:20px}
     .phase-head span{display:block;color:var(--muted);font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .phase-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+    .phase-meta span{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#fff;border:1px solid rgba(95,127,153,.12);color:var(--navy);font-size:12px;font-weight:900}
     .phase-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.6}
+    .scope-note{margin-top:18px;padding:14px 16px;border-radius:18px;background:rgba(255,248,239,.82);border:1px solid rgba(242,101,34,.14);color:#755741;font-size:13px;line-height:1.55;font-weight:800}
     .budget-list{display:grid;gap:12px;margin-top:22px}
     .budget-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.86);border:1px solid rgba(95,127,153,.14)}
     .budget-row strong{display:block;color:var(--navy);font-size:15px}
+    .budget-row small{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.35;font-weight:700}
     .budget-row span{color:var(--orange);font-size:15px;font-weight:900;letter-spacing:.02em}
     .budget-row.total{background:linear-gradient(135deg,#273f57,#3b5770);border-color:transparent}
     .budget-row.total strong,.budget-row.total span{color:#fff}
+    .budget-option{display:grid;gap:10px}
+    .budget-option + .budget-option{margin-top:18px;padding-top:18px;border-top:1px solid rgba(95,127,153,.14)}
+    .budget-option h3{margin:0;color:var(--navy);font-size:20px;letter-spacing:-.02em}
     .recurring-box{margin-top:18px;padding:18px 20px;border-radius:24px;background:linear-gradient(135deg,#fff8ef,#ffffff);border:1px solid rgba(242,101,34,.16)}
     .recurring-box h3{margin:0 0 10px;color:var(--navy);font-size:20px}
     .recurring-box p{margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.55}
@@ -277,69 +284,80 @@
       <div class="wrap">
         <div class="panel">
           <span class="kicker plan-kicker">Slide 6 — Investment & Delivery Plan</span>
-          <h2>งบลงทุนนี้ซื้อทั้งการส่งมอบระบบ และความพร้อมในการใช้งานจริง</h2>
-          <p class="plan-intro">Scope ถูกจัดเป็น 3 phase เพื่อเชื่อมให้เห็นชัดว่าแต่ละส่วนของงบใช้สร้างอะไร และผลลัพธ์ใดที่ TSI จะได้รับก่อน go-live</p>
+          <h2>Delivery phasing follows the selected budget option.</h2>
+          <p class="plan-intro">ทั้งสอง option ใช้ Phase 0 ร่วมกัน จากนั้น Option 1 จะเน้น launch แบบ lean ส่วน Option 2 จะเพิ่ม Zone 2 Starter Personal Assistant ก่อน go-live</p>
           <div class="phase-list">
             <div class="phase-card">
               <div class="phase-head">
                 <div class="phase-num">0</div>
-                <div><span>Delivery Scope</span><strong>Phase 0 — Discovery & Audit</strong></div>
+                <div><span>Both Options</span><strong>Phase 0 — Discovery & Audit</strong></div>
               </div>
+              <div class="phase-meta"><span>2 weeks</span><span>Shared foundation</span></div>
               <ul>
-                <li>Existing MiAi review</li>
-                <li>Knowledge audit</li>
-                <li>Final architecture</li>
-                <li>Evaluation criteria</li>
+                <li>Audit ระบบ MiAi เดิมและ LINE OA readiness</li>
+                <li>Review TSI Way knowledge, gaps, and source format</li>
+                <li>Confirm architecture, hosting, security, and PDPA assumptions</li>
+                <li>Define user journey, answer policy, and AI evaluation set</li>
               </ul>
             </div>
             <div class="phase-card">
               <div class="phase-head">
                 <div class="phase-num">1</div>
-                <div><span>Delivery Scope</span><strong>Phase 1 — Build & Integration</strong></div>
+                <div><span>Option 1 + Option 2</span><strong>Phase 1 — AI Q&amp;A + LINE Foundation</strong></div>
               </div>
+              <div class="phase-meta"><span>Lean path</span><span>Production path</span></div>
               <ul>
-                <li>LINE OA</li>
-                <li>Claude + RAG</li>
-                <li>Guardrails</li>
-                <li>Dashboard and logging</li>
+                <li>Option 1: Zone 1 core AI Q&amp;A with Claude + RAG and basic source reference</li>
+                <li>Option 1: Zone 3 LINE OA essentials, messaging, quick reply, basic rich menu</li>
+                <li>Option 2: Zone 1 trusted AI Q&amp;A with monitoring, traceability, rate limit, cost control</li>
+                <li>Option 2: Zone 3 LINE OA experience with basic notification and handover</li>
               </ul>
             </div>
             <div class="phase-card">
               <div class="phase-head">
                 <div class="phase-num">2</div>
-                <div><span>Delivery Scope</span><strong>Phase 2 — Testing & Go-live</strong></div>
+                <div><span>Option-Specific</span><strong>Phase 2 — Go-live or Starter Assistant</strong></div>
               </div>
+              <div class="phase-meta"><span>Option 1 launch</span><span>Option 2 adds Zone 2</span></div>
               <ul>
-                <li>Functional and AI evaluation</li>
-                <li>Security and load test</li>
-                <li>UAT</li>
-                <li>Deployment and handover</li>
+                <li>Option 1: functional test, AI quality check, UAT support, deployment</li>
+                <li>Option 1: basic runbook, training, and launch handover</li>
+                <li>Option 2: Zone 2 starter business profile, guided prompts, simple recommendation</li>
+                <li>Option 2: production readiness, quality review, runbook, training, and handover</li>
               </ul>
             </div>
           </div>
+          <div class="scope-note">Future roadmap beyond Option 2: advanced personalization, human handoff, admin knowledge portal, CRM, LINE MINI App, booking, community, campaign automation, and advanced BI.</div>
         </div>
         <div class="panel">
           <span class="kicker plan-kicker">Budget Summary</span>
-          <h2>Project investment is separated from recurring usage cost.</h2>
+          <h2>Two simplified budget options by required zone.</h2>
           <div class="budget-list">
-            <div class="budget-row"><strong>Discovery & Solution Design</strong><span>XX,XXX THB</span></div>
-            <div class="budget-row"><strong>UX / LINE Experience</strong><span>XX,XXX THB</span></div>
-            <div class="budget-row"><strong>AI, RAG & Backend Development</strong><span>XXX,XXX THB</span></div>
-            <div class="budget-row"><strong>Dashboard, Monitoring & Security</strong><span>XX,XXX THB</span></div>
-            <div class="budget-row"><strong>Testing, Deployment & Training</strong><span>XX,XXX THB</span></div>
-            <div class="budget-row total"><strong>Total Project Investment</strong><span>XXX,XXX THB</span></div>
+            <div class="budget-option">
+              <h3>Option 1 — Lean Required Launch</h3>
+              <div class="budget-row"><strong>Zone 1 — Core AI Q&amp;A<small>Claude + RAG, basic source reference, fallback</small></strong><span>650K THB</span></div>
+              <div class="budget-row"><strong>Zone 2 — Personal Business Assistant<small>Not included in required launch scope</small></strong><span>-</span></div>
+              <div class="budget-row"><strong>Zone 3 — LINE OA Essentials<small>Messaging, quick reply, basic rich menu</small></strong><span>200K THB</span></div>
+              <div class="budget-row total"><strong>Option 1 Total</strong><span>850K THB</span></div>
+            </div>
+            <div class="budget-option">
+              <h3>Option 2 — Recommended Production Launch</h3>
+              <div class="budget-row"><strong>Zone 1 — Trusted AI Q&amp;A<small>RAG, monitoring, traceability, rate limit, cost control</small></strong><span>700K THB</span></div>
+              <div class="budget-row"><strong>Zone 2 — Starter Personal Assistant<small>Business profile, guided prompts, simple personalized recommendation</small></strong><span>250K THB</span></div>
+              <div class="budget-row"><strong>Zone 3 — LINE OA Experience<small>Rich menu, quick reply, basic notification, handover</small></strong><span>250K THB</span></div>
+              <div class="budget-row total"><strong>Option 2 Total</strong><span>1.2M THB</span></div>
+            </div>
           </div>
           <div class="recurring-box">
             <h3>Recurring Cost — Estimated</h3>
-            <p>รายการใช้งานรายเดือนควรประเมินแยกจาก development cost เพราะ usage จริงจะชัดขึ้นหลังเปิดใช้งาน</p>
+            <p>งบรายเดือนควรแยกจาก development cost และปรับตามจำนวนผู้ใช้ ข้อความ เอกสาร และ SLA หลัง go-live</p>
             <ul>
-              <li>Claude API</li>
-              <li>LINE Messaging API</li>
-              <li>Cloud Infrastructure</li>
-              <li>Vector Database / Monitoring</li>
-              <li>Maintenance and Support</li>
+              <li>Claude API and embedding usage: 15K-60K THB / month</li>
+              <li>Cloud, vector database, logs, and monitoring: 25K-70K THB / month</li>
+              <li>Maintenance, support, and knowledge update service: 60K-120K THB / month</li>
+              <li>LINE Messaging API cost depends on TSI package and message volume</li>
             </ul>
-            <p class="note-line">Third-party usage cost ไม่ควรถูกรวมไว้ใน development cost หาก volume การใช้งานยังไม่ชัด</p>
+            <p class="note-line">Estimated recurring baseline: 100K-250K THB / month. Advanced personalization, MINI App, CRM, booking, campaign automation, community, and advanced BI remain future roadmap.</p>
           </div>
         </div>
       </div>

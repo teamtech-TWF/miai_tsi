@@ -310,6 +310,10 @@ Architecture รองรับการต่อยอดไปสู่:
 
 ### Phase 0 — Discovery & Existing System Audit
 
+**Estimated duration:** 2 weeks  
+**Estimated manday:** 4 UX/UI MD + 10 Other MD  
+**Estimated one-time cost:** 117,000 THB
+
 - Audit ระบบ MiAi เดิม
 - Review Knowledge Base
 - Confirm LINE OA Readiness
@@ -319,32 +323,76 @@ Architecture รองรับการต่อยอดไปสู่:
 - Confirm Security และ PDPA Assumptions
 - Finalize Technical Scope
 
-### Phase 1 — LINE OA MVP
+### Phase 1 — AI Q&A + LINE Foundation
 
-- LINE OA Text Chat
+**Applies to:** Option 1 and Option 2
+
+- Option 1: Zone 1 Core AI Q&A with Claude Haiku 4.5, RAG, basic source reference, fallback
+- Option 1: Zone 3 LINE OA essentials, messaging, quick reply, basic rich menu
+- Option 2: Zone 1 Trusted AI Q&A with RAG, monitoring, traceability, rate limit, cost control
+- Option 2: Zone 3 LINE OA experience with rich menu, quick reply, basic notification, handover preparation
 - Secure Webhook
-- Claude Haiku 4.5
-- RAG
 - Controlled Answer
-- Fallback
 - Disclaimer
-- Rate Limiting
-- Basic Dashboard
-- Basic Traceability
-- Alerting
 
-### Phase 2 — Production Readiness
+### Phase 2 — Go-live or Starter Assistant
 
-- Knowledge Versioning
-- Advanced Dashboard
-- Quality Analytics
-- Security Hardening
-- Load Testing
-- Automated Evaluation
-- Operational Runbook
-- Knowledge Operations Process
+**Applies differently by selected option**
+
+- Option 1: Functional test, AI quality check, UAT support, deployment
+- Option 1: Basic runbook, training, and launch handover
+- Option 2: Zone 2 starter business profile
+- Option 2: Guided prompts and simple personalized recommendation
+- Option 2: Production readiness, quality review, runbook, training, and handover
+
+### Budget Options by Zone
+
+#### Option 1 — Lean Required Launch
+
+| Zone | Scope Position | Estimated Cost |
+|---|---|---:|
+| Zone 1 | Core AI Q&A, Claude + RAG, basic source reference, fallback | 650,000 THB |
+| Zone 2 | Personal Business Assistant | Not included |
+| Zone 3 | LINE OA messaging, quick reply, basic rich menu | 200,000 THB |
+| **Total Option 1** |  | **850,000 THB** |
+
+#### Option 2 — Recommended Production Launch
+
+| Zone | Scope Position | Estimated Cost |
+|---|---|---:|
+| Zone 1 | Trusted AI Q&A, RAG, monitoring, traceability, rate limit, cost control | 700,000 THB |
+| Zone 2 | Starter Personal Business Assistant: business profile, guided prompts, simple personalized recommendation | 250,000 THB |
+| Zone 3 | LINE OA experience, rich menu, quick reply, basic notification, handover | 250,000 THB |
+| **Total Option 2** |  | **1,200,000 THB** |
+
+Advanced personalization, LINE MINI App, CRM, booking, campaign automation, community, and advanced BI remain future roadmap and should not be shown as an immediate purchase total unless TSI requests those modules.
+
+### Phase Cost Reference
+
+| Phase | Scope Position | Reference Cost |
+|---|---|---:|
+| Phase 0 | Discovery, audit, architecture, evaluation design | 117,000 THB |
+| Phase 1 | LINE OA MVP, Claude Haiku 4.5, RAG, controls, basic dashboard | Included in commercial package |
+| Phase 2 | Production hardening, quality analytics, testing, runbook, handover | Included in commercial package |
+| **Recommended Production Launch** |  | **1,200,000 THB** |
+
+### Recurring Cost Estimate
+
+Recurring cost should be separated from development cost because real usage depends on active users, message volume, document volume, monitoring retention, and SLA expectation after go-live.
+
+| Cost Item | Estimated Monthly Cost |
+|---|---:|
+| Claude API and embedding usage | 15,000–60,000 THB |
+| Cloud infrastructure, vector database, logging, monitoring | 25,000–70,000 THB |
+| Maintenance, support, and knowledge update service | 60,000–120,000 THB |
+| LINE Messaging API | Depends on TSI package and message volume |
+| **Estimated Monthly Baseline** | **100,000–250,000 THB / month** |
+
+Third-party usage cost should not be bundled into development cost until the expected launch volume is confirmed.
 
 ### Phase 3 — Future Expansion
+
+Phase 3 should remain optional roadmap scope and should not be included in the base project investment unless TSI explicitly selects these modules.
 
 - Human-assisted Advisory
 - Business Profile
