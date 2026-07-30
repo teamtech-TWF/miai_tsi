@@ -23,8 +23,8 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,"Noto Sans Thai",Arial,sans-serif;color:var(--ink);background:#f7eee2;overflow-x:hidden}
-    .deck{min-height:100vh;background:linear-gradient(180deg,#fff6eb,#eef5f8)}
-    .slide{min-height:100svh;position:relative;display:grid;align-items:center;padding:72px 20px 84px;overflow:hidden;scroll-snap-align:start}
+    .deck{min-height:100vh;background:linear-gradient(180deg,#fff6eb,#eef5f8);scroll-snap-type:y proximity}
+    .slide{min-height:100svh;position:relative;display:grid;align-items:center;padding:72px 20px 84px;overflow:visible;scroll-snap-align:start}
     .slide::before{content:"";position:absolute;inset:0;background-image:url('assets/bg-waves.png');background-size:cover;background-position:center;opacity:.58;z-index:0}
     .slide > *{position:relative;z-index:1}
     .eyebrow{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin:0 0 10px}
@@ -164,21 +164,21 @@
     .webview-frame iframe{
       display:block;
       width:100%;
-      height:72vh;
-      min-height:640px;
+      height:clamp(520px,72vh,900px);
+      min-height:520px;
       border:0;
       border-radius:20px;
       background:#fff
     }
     .quote{font-size:clamp(26px,5vw,52px);line-height:1.08;color:var(--navy);font-weight:900;letter-spacing:-.035em}.quote small{display:block;font-size:clamp(16px,2vw,24px);line-height:1.4;color:#53687b;font-weight:700;margin-top:16px;letter-spacing:0}.cta{display:inline-flex;margin-top:28px;background:linear-gradient(135deg,var(--orange),#ff9b54);color:#fff;padding:14px 18px;border-radius:999px;font-weight:900;box-shadow:0 16px 36px rgba(242,101,34,.22)}
-    .controls{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);padding:8px;border-radius:999px;box-shadow:0 18px 50px rgba(39,63,87,.18);backdrop-filter:blur(14px)}.controls button{border:0;background:#fff;color:var(--navy);width:42px;height:42px;border-radius:50%;font-size:19px;font-weight:900;cursor:pointer}.controls button:hover{background:var(--orange);color:#fff}.counter{font-size:13px;font-weight:900;color:#64778a;min-width:46px;text-align:center}.progress{position:fixed;z-index:21;left:0;top:0;height:5px;background:linear-gradient(90deg,var(--orange),#ffb06c);width:0%}
+    .controls{position:fixed;z-index:20;right:18px;bottom:18px;transform:none;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);padding:8px 10px;border-radius:999px;box-shadow:0 18px 50px rgba(39,63,87,.18);backdrop-filter:blur(14px)}.controls button{border:0;background:#fff;color:var(--navy);width:42px;height:42px;border-radius:50%;font-size:19px;font-weight:900;cursor:pointer}.controls button:hover{background:var(--orange);color:#fff}.counter{font-size:13px;font-weight:900;color:#64778a;min-width:52px;text-align:center}.progress{position:fixed;z-index:21;left:0;top:0;height:5px;background:linear-gradient(90deg,var(--orange),#ffb06c);width:0%}
     @media (min-width:820px){
-      body{overflow:hidden}.deck{height:100vh;overflow:hidden}.slide{min-height:100vh;padding:54px 52px}.grid-2{grid-template-columns:1fr;gap:42px}.split-slide .grid-2{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.ops-slide .grid-2{grid-template-columns:1.05fr .95fr}.vision-slide .grid-2,.line-slide .grid-2,.ai-slide .grid-2{grid-template-columns:minmax(0,1fr)}.slide{display:none}.slide.active{display:grid;align-content:start;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-gutter:stable}.feature-grid{grid-template-columns:repeat(2,1fr)}.metric-grid{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(2,1fr)}.panel{padding:34px}.hero-card.lift{transform:translateY(8px)}
+      body{overflow-x:hidden}.slide{min-height:100vh;padding:54px 52px}.grid-2{grid-template-columns:1fr;gap:42px}.split-slide .grid-2{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.ops-slide .grid-2{grid-template-columns:1.05fr .95fr}.vision-slide .grid-2,.line-slide .grid-2,.ai-slide .grid-2{grid-template-columns:minmax(0,1fr)}.slide.active{outline:none}.feature-grid{grid-template-columns:repeat(2,1fr)}.metric-grid{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(2,1fr)}.panel{padding:34px}.hero-card.lift{transform:translateY(8px)}
     }
     @media (min-width:1180px){.slide{padding:64px 78px}.grid-2{gap:58px}.split-slide .grid-2,.ops-slide .grid-2{gap:58px}.vision-slide .grid-2,.line-slide .grid-2,.ai-slide .grid-2{grid-template-columns:minmax(0,1fr)}.journey{grid-template-columns:repeat(4,1fr)}.line-slide .journey{grid-template-columns:repeat(4,minmax(0,1fr))}.ai-slide .feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.step{padding:18px}.step .dot{position:static;margin-bottom:12px}.step{min-height:160px}.line-slide .step{min-height:220px;padding:24px}.ai-slide .feature{min-height:220px;padding:24px}.metric-grid{grid-template-columns:repeat(4,1fr)}.ecosystem-slide .value-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media (max-width:819px){.deck{scroll-snap-type:y mandatory}.controls{display:none}.slide{border-bottom:1px solid rgba(95,127,153,.14)}.hero-card{border-radius:22px}.desktop-only{display:none}.story-slide .wrap,.plan-slide .wrap{grid-template-columns:1fr;gap:26px}.ecosystem-top,.value-grid,.appendix-grid{grid-template-columns:1fr}.bridge-arrow{font-size:34px}.webview-frame iframe{height:68vh;min-height:520px}}
+    @media (max-width:819px){.deck{scroll-snap-type:y proximity}.controls{left:50%;right:auto;bottom:14px;transform:translateX(-50%)}.slide{border-bottom:1px solid rgba(95,127,153,.14)}.hero-card{border-radius:22px}.desktop-only{display:none}.story-slide .wrap,.plan-slide .wrap{grid-template-columns:1fr;gap:26px}.ecosystem-top,.value-grid,.appendix-grid{grid-template-columns:1fr}.bridge-arrow{font-size:34px}.webview-frame iframe{height:68vh;min-height:520px}}
     @media (max-width:819px){.vision-stage{min-height:auto}.vision-slide .layers,.line-slide .journey,.ai-slide .feature-grid{grid-template-columns:1fr}.line-slide .panel,.ai-slide .panel,.story-panel,.plan-slide .panel{padding:24px 0}.journey-block{grid-template-columns:56px minmax(0,1fr)}.journey-num{width:56px;height:56px;font-size:20px}}
-    @media (max-width:480px){.slide{padding:56px 16px 64px}.panel{padding:20px;border-radius:22px}.layer{grid-template-columns:44px 1fr}.num{width:44px;height:44px;font-size:19px;border-radius:14px}.pill{font-size:12px}}
+    @media (max-width:480px){.slide{padding:56px 16px 88px}.panel{padding:20px;border-radius:22px}.layer{grid-template-columns:44px 1fr}.num{width:44px;height:44px;font-size:19px;border-radius:14px}.pill{font-size:12px}.controls{gap:8px;padding:6px 8px}.controls button{width:38px;height:38px}}
   </style>
 </head>
 <body>
@@ -419,19 +419,35 @@
     const counter = document.getElementById('counter');
     const progress = document.getElementById('progress');
     let index = 0;
-    function show(i){
+    function updateUI(i){
       index = Math.max(0, Math.min(slides.length - 1, i));
       slides.forEach((s,n)=>s.classList.toggle('active', n===index));
       counter.textContent = `${index+1} / ${slides.length}`;
       progress.style.width = `${((index+1)/slides.length)*100}%`;
     }
+    function show(i){
+      updateUI(i);
+      slides[index].scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    const observer = new IntersectionObserver((entries)=>{
+      const visible = entries
+        .filter((entry)=>entry.isIntersecting)
+        .sort((a,b)=>b.intersectionRatio - a.intersectionRatio)[0];
+      if(!visible) return;
+      const visibleIndex = slides.indexOf(visible.target);
+      if(visibleIndex >= 0) updateUI(visibleIndex);
+    }, {
+      threshold:[0.35,0.55,0.75],
+      rootMargin:'-12% 0px -18% 0px'
+    });
+    slides.forEach((slide)=>observer.observe(slide));
     document.getElementById('next').addEventListener('click',()=>show(index+1));
     document.getElementById('prev').addEventListener('click',()=>show(index-1));
     window.addEventListener('keydown',(e)=>{
       if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); show(index+1); }
       if(e.key==='ArrowLeft'){ e.preventDefault(); show(index-1); }
     });
-    show(0);
+    updateUI(0);
   </script>
 </body>
 </html>
