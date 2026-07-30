@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TSI AI Business Advisor — 4 Layer Paper Prototype + Use Cases</title>
+  <style>
+    :root{
+      --orange:#EB5B25;
+      --orange-2:#FF8A3D;
+      --ink:#18212B;
+      --muted:#68727D;
+      --cream:#FFF9F2;
+      --paper:#FFFFFF;
+      --line:#D9E0E6;
+      --blue:#EAF1F7;
+      --blue-2:#C7D7E5;
+      --green:#E8F4E7;
+      --green-2:#D3EBD0;
+      --shadow:0 18px 50px rgba(39,48,58,.12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(235,91,37,.10), transparent 28%),
+        linear-gradient(180deg,#F8F3EC 0%,#EEF3F7 100%);
+      color:var(--ink);
+      min-height:100vh;
+    }
+    button,input{font:inherit}
+    .app{max-width:1440px;margin:0 auto;padding:24px}
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:16px;margin-bottom:20px
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:44px;height:44px;border-radius:14px;background:var(--orange);
+      display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:-1px;
+      box-shadow:0 10px 22px rgba(235,91,37,.28)
+    }
+    .brand h1{font-size:18px;margin:0}
+    .brand p{font-size:12px;margin:2px 0 0;color:var(--muted)}
+    .status-pill{
+      background:#fff;border:1px solid var(--line);border-radius:999px;
+      padding:10px 14px;font-size:12px;display:flex;align-items:center;gap:8px
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:#27AE60;box-shadow:0 0 0 4px rgba(39,174,96,.12)}
+    .hero{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:20px;
+      background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);
+      backdrop-filter:blur(14px);border-radius:28px;padding:28px;box-shadow:var(--shadow);
+      margin-bottom:20px
+    }
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase}
+    .hero h2{font-size:clamp(30px,4vw,56px);line-height:1.03;margin:10px 0 14px;letter-spacing:-.04em}
+    .hero p{font-size:16px;line-height:1.7;color:var(--muted);margin:0;max-width:680px}
+    .hero-card{
+      background:var(--ink);color:#fff;border-radius:24px;padding:22px;
+      display:grid;grid-template-columns:repeat(2,1fr);gap:12px
+    }
+    .hero-card .metric{
+      min-height:112px;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;
+      background:rgba(255,255,255,.06)
+    }
+    .metric b{display:block;font-size:28px;margin-top:16px}
+    .metric span{font-size:12px;color:#CBD4DC}
+
+    .usecase-wrap{
+      background:#fff;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow);
+      margin-bottom:20px
+    }
+    .section-title{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px
+    }
+    .section-title h3{margin:0;font-size:28px;letter-spacing:-.03em}
+    .section-title p{margin:6px 0 0;color:var(--muted);line-height:1.55}
+    .section-pill{
+      font-size:11px;font-weight:800;color:var(--orange);background:var(--cream);border:1px solid #FFD7C4;padding:8px 10px;border-radius:999px;white-space:nowrap
+    }
+
+    .usecase-grid{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px
+    }
+    .uc-card{
+      border:1px solid #E1E6EB;border-radius:18px;padding:14px;background:#FCFCFC;cursor:pointer;text-align:left;
+      transition:.18s ease;min-height:170px
+    }
+    .uc-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(23,32,40,.08)}
+    .uc-card.active{border-color:#F0B391;background:var(--cream);box-shadow:inset 0 0 0 1px #FFD3BF}
+    .uc-no{
+      width:32px;height:32px;border-radius:10px;background:#EEF2F5;display:grid;place-items:center;
+      font-size:12px;font-weight:900;color:#56616D;margin-bottom:12px
+    }
+    .uc-card.active .uc-no{background:var(--orange);color:#fff}
+    .uc-card b{display:block;font-size:14px;margin-bottom:6px}
+    .uc-card p{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
+
+    .demo-panel{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:16px;
+      border:1px solid #E2E7EB;border-radius:22px;padding:18px;background:linear-gradient(180deg,#FFFFFF 0%,#FCF8F4 100%)
+    }
+    .demo-main h4{margin:0 0 8px;font-size:24px;letter-spacing:-.03em}
+    .demo-main .sub{margin:0 0 14px;color:var(--muted);line-height:1.6}
+    .demo-kpis{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .demo-kpi{
+      border:1px solid #E3E7EB;border-radius:999px;padding:8px 10px;background:#fff;font-size:12px
+    }
+    .journey{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px
+    }
+    .journey .step{
+      border:1px dashed #D7DDE3;border-radius:14px;padding:12px;background:#fff;min-height:112px
+    }
+    .journey .step small{font-weight:800;color:var(--orange)}
+    .journey .step b{display:block;margin:7px 0 6px;font-size:14px}
+    .journey .step span{font-size:12px;color:var(--muted);line-height:1.45}
+    .demo-side{
+      background:#18212B;color:#fff;border-radius:18px;padding:18px
+    }
+    .demo-side h5{margin:0 0 10px;font-size:14px;letter-spacing:.02em}
+    .demo-side .out{
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:13px;margin-bottom:10px
+    }
+    .demo-side .out b{display:block;font-size:13px;margin-bottom:4px}
+    .demo-side .out p{margin:0;color:#D9E1E8;font-size:12px;line-height:1.5}
+    .demo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      border:0;border-radius:999px;padding:11px 14px;cursor:pointer;font-weight:800
+    }
+    .btn.orange{background:var(--orange);color:#fff}
+    .btn.light{background:#fff;color:var(--ink)}
+    .muted-note{font-size:11px;color:#AEB8C0;margin-top:10px}
+
+    .prototype{
+      display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start
+    }
+    .side{
+      background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;
+      position:sticky;top:18px;box-shadow:var(--shadow)
+    }
+    .side-label{font-size:11px;color:var(--muted);font-weight:800;padding:10px 10px 6px;text-transform:uppercase;letter-spacing:.1em}
+    .navbtn{
+      width:100%;border:0;background:transparent;text-align:left;padding:13px 12px;
+      border-radius:14px;cursor:pointer;font-weight:750;color:#33404C;display:flex;gap:11px;align-items:center;
+      margin:4px 0
+    }
+    .navbtn:hover{background:#F5F7F9}
+    .navbtn.active{background:var(--cream);color:var(--orange);box-shadow:inset 0 0 0 1px #FFD8C5}
+    .num{
+      width:28px;height:28px;border-radius:9px;background:#EEF2F5;display:grid;place-items:center;font-size:12px
+    }
+    .navbtn.active .num{background:var(--orange);color:#fff}
+
+    .canvas{
+      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+      padding:20px;box-shadow:var(--shadow);min-height:700px
+    }
+    .layer{display:none}
+    .layer.active{display:block}
+    .section-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px}
+    .section-head h3{font-size:28px;margin:0 0 6px;letter-spacing:-.03em}
+    .section-head p{margin:0;color:var(--muted);line-height:1.55}
+    .tag{font-size:11px;font-weight:800;color:var(--orange);background:var(--cream);border:1px solid #FFD7C4;padding:8px 10px;border-radius:999px;white-space:nowrap}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .paper{
+      border:2px solid #C9CDD2;border-radius:18px;background:#FCFCFA;padding:16px;
+      box-shadow:4px 5px 0 #DDE1E5;position:relative
+    }
+    .paper:before{
+      content:"";position:absolute;inset:8px;border:1px dashed #D5D9DE;border-radius:12px;pointer-events:none
+    }
+    .paper > *{position:relative;z-index:1}
+    .phone{
+      max-width:390px;margin:0 auto;background:#14191F;border-radius:34px;padding:12px;
+      box-shadow:0 16px 40px rgba(0,0,0,.18)
+    }
+    .screen{background:#F7F7F4;border-radius:25px;overflow:hidden;min-height:590px;display:flex;flex-direction:column}
+    .chat-head{background:#fff;padding:14px 16px;border-bottom:1px solid #E4E6E8;display:flex;align-items:center;gap:10px}
+    .avatar{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:900}
+    .chat-head b{font-size:14px}
+    .chat-head small{display:block;color:var(--muted);font-size:11px}
+    .messages{flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;overflow:auto}
+    .bubble{max-width:86%;padding:11px 13px;border-radius:16px;line-height:1.45;font-size:13px}
+    .bot{background:#fff;border:1px solid #E2E4E6;align-self:flex-start;border-bottom-left-radius:5px}
+    .user{background:var(--orange);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+    .cite{display:block;font-size:10px;color:#7C8791;margin-top:7px}
+    .quick{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 10px}
+    .chip{border:1px solid #F0B18F;background:#FFF8F2;border-radius:999px;padding:8px 10px;font-size:11px;color:#9F431D;cursor:pointer}
+    .composer{display:flex;gap:8px;padding:12px;border-top:1px solid #E3E5E7;background:#fff}
+    .composer input{flex:1;border:1px solid #DADDE0;border-radius:999px;padding:10px 13px;outline:none}
+    .send{border:0;background:var(--orange);color:#fff;border-radius:50%;width:40px;height:40px;cursor:pointer}
+    .note-card{background:var(--cream);border:1px solid #FFD8C6;border-radius:16px;padding:14px;margin-bottom:12px}
+    .note-card b{display:block;margin-bottom:5px}
+    .mini-list{display:grid;gap:10px}
+    .mini-row{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#fff;border:1px solid #E4E7EA;border-radius:14px}
+    .mini-icon{width:28px;height:28px;border-radius:9px;background:var(--blue);display:grid;place-items:center;font-size:13px}
+    .mini-row b{font-size:13px}
+    .mini-row small{display:block;color:var(--muted);line-height:1.4;margin-top:3px}
+
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+    .flow-card{border:1px solid #DDE2E7;background:#fff;border-radius:16px;padding:14px;min-height:170px;position:relative}
+    .flow-card .step{font-size:11px;font-weight:900;color:var(--orange)}
+    .flow-card h4{margin:18px 0 8px;font-size:16px}
+    .flow-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+    .arrow{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:19px;color:#AAB4BD;z-index:2}
+    .rule{
+      margin-top:16px;border-radius:16px;padding:15px;background:#18212B;color:#fff;
+      display:flex;justify-content:space-between;align-items:center;gap:12px
+    }
+    .rule code{font-size:11px;color:#D8E5EF}
+
+    .doc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    .doc-list{display:grid;gap:10px}
+    .doc{display:flex;align-items:center;gap:12px;border:1px solid #DEE3E8;border-radius:14px;padding:13px;background:#fff}
+    .doc-icon{width:42px;height:52px;background:#FFF2EB;border:1px solid #FFD5BF;border-radius:9px;display:grid;place-items:center;color:var(--orange);font-weight:900}
+    .doc-meta{flex:1}
+    .doc-meta b{font-size:13px}
+    .doc-meta small{display:block;color:var(--muted);margin-top:4px}
+    .badge-ok{font-size:10px;background:#ECF7EE;color:#25743E;padding:6px 8px;border-radius:999px}
+    .searchbox{display:flex;gap:8px;margin-bottom:12px}
+    .searchbox input{flex:1;border:1px solid #D9DEE3;border-radius:12px;padding:11px}
+    .searchbox button{border:0;border-radius:12px;background:var(--ink);color:#fff;padding:0 14px}
+    .result{padding:13px;background:#F7F9FB;border-left:4px solid var(--orange);border-radius:10px;margin-bottom:10px}
+    .result b{font-size:12px}
+    .result p{font-size:12px;color:var(--muted);line-height:1.45;margin:5px 0 0}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+    .stat{border:1px solid #DDE2E7;border-radius:16px;padding:14px}
+    .stat small{color:var(--muted)}
+    .stat b{display:block;font-size:25px;margin-top:8px}
+    .monitor-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+    .chart{height:260px;border:1px solid #DDE2E7;border-radius:16px;padding:16px;position:relative;overflow:hidden}
+    .bars{height:190px;display:flex;align-items:end;gap:10px;margin-top:20px;border-bottom:1px solid #D8DEE4}
+    .bar{flex:1;background:linear-gradient(180deg,var(--orange-2),var(--orange));border-radius:8px 8px 0 0;min-height:18px}
+    .alerts{display:grid;gap:10px}
+    .alert{border:1px solid #E1E5E9;border-radius:14px;padding:13px;display:flex;justify-content:space-between;gap:10px}
+    .alert b{font-size:12px}
+    .alert small{display:block;color:var(--muted);margin-top:4px}
+    .sev{font-size:10px;padding:6px 8px;border-radius:999px;height:max-content}
+    .sev.good{background:#ECF7EE;color:#267441}
+    .sev.warn{background:#FFF5E5;color:#A36500}
+
+    .footer-note{margin-top:16px;font-size:11px;color:var(--muted);text-align:center}
+
+    @media(max-width:1100px){
+      .hero,.prototype,.grid-2,.doc-grid,.monitor-grid,.demo-panel{grid-template-columns:1fr}
+      .usecase-grid{grid-template-columns:repeat(2,1fr)}
+      .side{position:static;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+      .side-label{display:none}
+      .navbtn{justify-content:center;padding:10px 6px;font-size:11px;text-align:center;flex-direction:column;gap:5px}
+      .journey{grid-template-columns:1fr 1fr}
+      .flow{grid-template-columns:1fr 1fr}
+      .arrow{display:none}
+    }
+    @media(max-width:640px){
+      .app{padding:12px}
+      .topbar{align-items:flex-start}
+      .status-pill{display:none}
+      .hero{padding:20px}
+      .hero-card{grid-template-columns:1fr 1fr}
+      .prototype{gap:12px}
+      .side{grid-template-columns:repeat(4,1fr);padding:8px}
+      .navbtn .label{display:none}
+      .canvas{padding:14px;min-height:auto}
+      .section-head,.section-title{display:block}
+      .tag,.section-pill{display:inline-block;margin-top:10px}
+      .flow,.stats,.usecase-grid,.journey{grid-template-columns:1fr}
+      .hero h2{font-size:34px}
+      .phone{max-width:100%}
+      .demo-main h4{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">TSI</div>
+      <div>
+        <h1>AI Business Advisor</h1>
+        <p>Paper Prototype Demo · 4-Layer Architecture + 5 Use Cases</p>
+      </div>
+    </div>
+    <div class="status-pill"><span class="dot"></span> Prototype ready for demo</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Toyota Social Innovation</div>
+      <h2>จาก LINE Chat สู่ระบบให้คำปรึกษาธุรกิจที่ตรวจสอบได้</h2>
+      <p>ต้นแบบนี้จำลองประสบการณ์ใช้งาน 4 ชั้น ตั้งแต่การสนทนากับผู้ประกอบการ การประมวลผลของ AI การค้นหาจากเอกสาร TSI และการกำกับดูแลผ่าน Monitoring Dashboard พร้อมเพิ่ม 5 Use Case Demo เพื่อใช้ Pitch หรือ Present เส้นทางการใช้งานจริงของ MiAi</p>
+    </div>
+    <div class="hero-card">
+      <div class="metric"><span>Knowledge Scope</span><b>TSI Only</b></div>
+      <div class="metric"><span>Service Mode</span><b>24/7</b></div>
+      <div class="metric"><span>Fallback Rule</span><b>No Guess</b></div>
+      <div class="metric"><span>Traceability</span><b>Full Log</b></div>
+    </div>
+  </section>
+
+  <section class="usecase-wrap" id="usecases">
+    <div class="section-title">
+      <div>
+        <h3>Use Case Demo</h3>
+        <p>เลือก Use Case เพื่อดูเส้นทางการใช้งาน, ผลลัพธ์ที่ผู้ใช้จะได้รับ, และ layer ที่เกี่ยวข้องในการเดโม</p>
+      </div>
+      <span class="section-pill">Pitch-ready Scenarios</span>
+    </div>
+
+    <div class="usecase-grid" id="usecaseGrid">
+      <button class="uc-card active" data-key="ask">
+        <div class="uc-no">01</div>
+        <b>Ask MiAi</b>
+        <p>ผู้ประกอบการถามปัญหา และ AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง</p>
+      </button>
+      <button class="uc-card" data-key="diagnose">
+        <div class="uc-no">02</div>
+        <b>Diagnose My Business</b>
+        <p>AI ถาม 5–7 คำถาม และสรุป Business Health Card</p>
+      </button>
+      <button class="uc-card" data-key="mission">
+        <div class="uc-no">03</div>
+        <b>Start Improvement Mission</b>
+        <p>สร้างภารกิจ 7 วัน เพื่อเริ่มเปลี่ยนแปลงแบบเล็กแต่ทำได้จริง</p>
+      </button>
+      <button class="uc-card" data-key="similar">
+        <div class="uc-no">04</div>
+        <b>Learn from Similar Business</b>
+        <p>แนะนำ case study หรือศูนย์เรียนรู้ที่ใกล้เคียงกับบริบทธุรกิจ</p>
+      </button>
+      <button class="uc-card" data-key="connect">
+        <div class="uc-no">05</div>
+        <b>Connect to TSI</b>
+        <p>เมื่อประเมินว่าต้องการความช่วยเหลือเชิงลึก ระบบพาไปสู่บริการของ TSI</p>
+      </button>
+    </div>
+
+    <div class="demo-panel">
+      <div class="demo-main">
+        <h4 id="demoTitle">Use Case 1: Ask MiAi</h4>
+        <p class="sub" id="demoDesc">ผู้ประกอบการถามปัญหา → AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง</p>
+        <div class="demo-kpis" id="demoTags"></div>
+        <div class="journey" id="demoJourney"></div>
+      </div>
+      <div class="demo-side">
+        <h5>Expected Output</h5>
+        <div id="demoOutputs"></div>
+        <div class="demo-actions">
+          <button class="btn orange" id="openSuggestedLayer">Open Suggested Layer</button>
+          <button class="btn light" onclick="document.getElementById('prototype').scrollIntoView({behavior:'smooth'})">Go to Prototype</button>
+        </div>
+        <div class="muted-note" id="demoLayerHint">Suggested demo focus: Layer 1 + Layer 2</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="prototype" id="prototype">
+    <aside class="side">
+      <div class="side-label">4 Layers</div>
+      <button class="navbtn active" data-layer="layer1"><span class="num">1</span><span class="label">LINE Conversation</span></button>
+      <button class="navbtn" data-layer="layer2"><span class="num">2</span><span class="label">AI Intelligence</span></button>
+      <button class="navbtn" data-layer="layer3"><span class="num">3</span><span class="label">Knowledge Base</span></button>
+      <button class="navbtn" data-layer="layer4"><span class="num">4</span><span class="label">Monitoring</span></button>
+    </aside>
+
+    <section class="canvas">
+      <div id="layer1" class="layer active">
+        <div class="section-head">
+          <div><h3>Layer 1 — LINE Conversation</h3><p>ผู้ประกอบการเริ่มถามคำถามจาก LINE OA และได้รับคำแนะนำพร้อมแหล่งอ้างอิง</p></div>
+          <span class="tag">Frontstage Experience</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="paper">
+            <div class="phone">
+              <div class="screen">
+                <div class="chat-head">
+                  <div class="avatar">TSI</div>
+                  <div><b>MiAi · พี่บาส ที่ปรึกษาธุรกิจ</b><small>ออนไลน์ · ตอบจากฐานความรู้ TSI</small></div>
+                </div>
+                <div class="messages" id="messages">
+                  <div class="bubble bot">สวัสดีครับ ผมช่วยค้นหาแนวทางจาก “วิถีชุมชนพัฒน์ (TSI Way)” ได้ครับ ลองเลือกหัวข้อหรือพิมพ์คำถามได้เลย</div>
+                  <div class="bubble user">ยอดขายตก ควรเริ่มแก้จากตรงไหน?</div>
+                  <div class="bubble bot">แนะนำให้เริ่มจาก 3 ขั้นตอน: ตรวจสอบลูกค้าหลัก, ทบทวนคุณค่าของสินค้า และแยกปัญหาระหว่าง “คนไม่รู้จัก” กับ “รู้จักแต่ยังไม่ซื้อ”<span class="cite">อ้างอิง: TSI Way · การวิเคราะห์ปัญหาธุรกิจเบื้องต้น · v1.4</span></div>
+                </div>
+                <div class="quick">
+                  <button class="chip">วิเคราะห์ต้นทุน</button>
+                  <button class="chip">เพิ่มยอดขาย</button>
+                  <button class="chip">วางแผนการตลาด</button>
+                  <button class="chip">ประเมินธุรกิจ</button>
+                </div>
+                <div class="composer">
+                  <input id="chatInput" placeholder="พิมพ์คำถามธุรกิจ..." />
+                  <button class="send" id="sendBtn">➜</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="note-card"><b>Demo Scenario</b>ลองถามคำถาม เช่น “ลูกค้าซื้อครั้งเดียวแล้วไม่กลับมา ควรทำอย่างไร?” หรือ “ช่วยประเมินสุขภาพธุรกิจให้หน่อย” เพื่อจำลองทั้งโหมดถามตอบและโหมดวิเคราะห์ธุรกิจ</div>
+            <div class="mini-list">
+              <div class="mini-row"><div class="mini-icon">①</div><div><b>Immediate Access</b><small>เริ่มขอคำปรึกษาได้ตลอดเวลาโดยไม่ต้องรอเจ้าหน้าที่</small></div></div>
+              <div class="mini-row"><div class="mini-icon">②</div><div><b>Guided Prompts</b><small>Quick reply ช่วยให้ผู้ใช้เริ่มต้นจากหัวข้อที่เข้าใจง่าย</small></div></div>
+              <div class="mini-row"><div class="mini-icon">③</div><div><b>Evidence in Every Answer</b><small>คำตอบแสดงชื่อเอกสารและเวอร์ชันที่ใช้อ้างอิง</small></div></div>
+              <div class="mini-row"><div class="mini-icon">④</div><div><b>Safe Fallback</b><small>หากไม่พบข้อมูล ระบบจะแจ้งตรงไปตรงมาว่าไม่มีข้อมูลในฐานความรู้</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="layer2" class="layer">
+        <div class="section-head">
+          <div><h3>Layer 2 — AI Intelligence</h3><p>จำลอง workflow การรับข้อความ ค้นข้อมูล ควบคุมคำตอบ และส่งกลับ LINE</p></div>
+          <span class="tag">AI Orchestration</span>
+        </div>
+
+        <div class="paper">
+          <div class="flow">
+            <div class="flow-card"><span class="step">STEP 01</span><h4>Receive Event</h4><p>Webhook รับข้อความจาก LINE ผ่าน HTTPS endpoint</p><span class="arrow">→</span></div>
+            <div class="flow-card"><span class="step">STEP 02</span><h4>Classify Intent</h4><p>จำแนกหัวข้อ เช่น Q&A, Diagnose, Mission, Similar Case หรือ Connect</p><span class="arrow">→</span></div>
+            <div class="flow-card"><span class="step">STEP 03</span><h4>Retrieve Evidence</h4><p>ค้นเฉพาะเอกสารและ case study ที่อยู่ใน Vector Database ของ TSI</p><span class="arrow">→</span></div>
+            <div class="flow-card"><span class="step">STEP 04</span><h4>Generate & Guard</h4><p>สร้างคำตอบพร้อม citation, disclaimer, next action และ fallback rule</p></div>
+          </div>
+          <div class="rule">
+            <div><b>System Prompt Guardrail</b><br><code>ตอบเฉพาะข้อมูลจากเอกสาร TSI ที่ค้นพบเท่านั้น</code></div>
+            <div style="font-weight:900">No Evidence → No Answer</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:16px">
+          <div class="note-card"><b>Traceability</b>บันทึก AI model, prompt version, knowledge base version, response time และ status ของทุก transaction</div>
+          <div class="note-card"><b>Cost Control</b>กำหนด rate limit ต่อผู้ใช้และติดตาม token/API cost แบบรายวัน</div>
+        </div>
+      </div>
+
+      <div id="layer3" class="layer">
+        <div class="section-head">
+          <div><h3>Layer 3 — TSI Knowledge Base</h3><p>พื้นที่จัดการเอกสารความรู้ที่ระบบ AI สามารถนำไปใช้ตอบคำถามได้</p></div>
+          <span class="tag">Source of Truth</span>
+        </div>
+
+        <div class="doc-grid">
+          <div class="paper">
+            <h4 style="margin-top:0">Approved Documents</h4>
+            <div class="doc-list">
+              <div class="doc"><div class="doc-icon">PDF</div><div class="doc-meta"><b>TSI Way — การวิเคราะห์ปัญหาธุรกิจ</b><small>Version 1.4 · Updated 24 Jul 2026</small></div><span class="badge-ok">Active</span></div>
+              <div class="doc"><div class="doc-icon">PDF</div><div class="doc-meta"><b>คู่มือวางแผนการตลาดชุมชน</b><small>Version 2.1 · Updated 18 Jul 2026</small></div><span class="badge-ok">Active</span></div>
+              <div class="doc"><div class="doc-icon">PDF</div><div class="doc-meta"><b>แนวทางบริหารต้นทุนสำหรับ SME</b><small>Version 1.2 · Updated 09 Jul 2026</small></div><span class="badge-ok">Active</span></div>
+              <div class="doc"><div class="doc-icon">PDF</div><div class="doc-meta"><b>Case Study — ธุรกิจชุมชนเติบโต</b><small>Version 1.0 · Updated 01 Jul 2026</small></div><span class="badge-ok">Active</span></div>
+              <div class="doc"><div class="doc-icon">PDF</div><div class="doc-meta"><b>ศูนย์เรียนรู้เครือข่าย TSI</b><small>Version 0.9 · Updated 26 Jul 2026</small></div><span class="badge-ok">Active</span></div>
+            </div>
+          </div>
+
+          <div class="paper">
+            <h4 style="margin-top:0">Retrieval Preview</h4>
+            <div class="searchbox">
+              <input id="kbSearch" value="ลูกค้าซื้อครั้งเดียว ไม่กลับมา" />
+              <button id="kbBtn">ค้นหา</button>
+            </div>
+            <div id="results">
+              <div class="result"><b>Match 92% · คู่มือวางแผนการตลาดชุมชน</b><p>ควรแยกสาเหตุระหว่างประสบการณ์หลังการขาย ความถี่การสื่อสาร และเหตุผลที่ลูกค้าไม่มีความจำเป็นต้องซื้อซ้ำ</p></div>
+              <div class="result"><b>Match 84% · TSI Way</b><p>ให้เริ่มจากการตั้งคำถามกับลูกค้าเดิมก่อนสร้างแคมเปญใหม่ เพื่อค้นหา pain point ที่แท้จริง</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="layer4" class="layer">
+        <div class="section-head">
+          <div><h3>Layer 4 — Monitoring & Governance</h3><p>Dashboard สำหรับทีม TSI และผู้ดูแลระบบ ตรวจสอบคุณภาพ ความเสถียร และต้นทุน</p></div>
+          <span class="tag">Backstage Control</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><small>Uptime</small><b>99.98%</b></div>
+          <div class="stat"><small>Avg. Response</small><b>1.8s</b></div>
+          <div class="stat"><small>Fallback Rate</small><b>7.2%</b></div>
+          <div class="stat"><small>Today Cost</small><b>$18.40</b></div>
+        </div>
+
+        <div class="monitor-grid">
+          <div class="chart">
+            <b>Daily Conversations</b>
+            <div class="bars">
+              <div class="bar" style="height:42%"></div><div class="bar" style="height:58%"></div>
+              <div class="bar" style="height:64%"></div><div class="bar" style="height:47%"></div>
+              <div class="bar" style="height:78%"></div><div class="bar" style="height:88%"></div>
+              <div class="bar" style="height:72%"></div>
+            </div>
+          </div>
+          <div class="alerts">
+            <div class="alert"><div><b>Webhook Health</b><small>Last checked 1 min ago</small></div><span class="sev good">Normal</span></div>
+            <div class="alert"><div><b>Knowledge Base Sync</b><small>5 documents active</small></div><span class="sev good">Synced</span></div>
+            <div class="alert"><div><b>Fallback Threshold</b><small>7.2% vs target &lt; 10%</small></div><span class="sev good">Within Target</span></div>
+            <div class="alert"><div><b>API Cost Alert</b><small>78% of daily budget used</small></div><span class="sev warn">Watch</span></div>
+          </div>
+        </div>
+        <div class="footer-note">Prototype data is illustrative and intended for pitching / workflow demonstration only.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const navButtons = document.querySelectorAll('.navbtn');
+  const layers = document.querySelectorAll('.layer');
+
+  function showLayer(layerId){
+    navButtons.forEach(b=>b.classList.remove('active'));
+    layers.forEach(l=>l.classList.remove('active'));
+    const targetBtn = [...navButtons].find(b=>b.dataset.layer===layerId);
+    if(targetBtn) targetBtn.classList.add('active');
+    const targetLayer = document.getElementById(layerId);
+    if(targetLayer) targetLayer.classList.add('active');
+  }
+
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>showLayer(btn.dataset.layer));
+  });
+
+  const useCases = {
+    ask: {
+      title: "Use Case 1: Ask MiAi",
+      desc: "ผู้ประกอบการถามปัญหา → AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง",
+      tags: ["Entry via LINE OA", "Citation in Answer", "Fast Q&A", "Low-friction Start"],
+      journey: [
+        ["Step 1","User asks","พิมพ์คำถามธุรกิจ เช่น ยอดขายตก ลูกค้าหาย ต้นทุนสูง"],
+        ["Step 2","AI retrieves","ค้นหาเนื้อหาที่เกี่ยวข้องจาก TSI Way และเอกสารอนุมัติ"],
+        ["Step 3","AI answers","ตอบเป็นภาษาง่าย พร้อมแหล่งอ้างอิงและ disclaimer"],
+        ["Step 4","Next action","ชวนถามต่อ หรือแนะนำภารกิจ/การวินิจฉัยธุรกิจ"]
+      ],
+      outputs: [
+        ["Answer with citation","คำตอบสั้น ชัดเจน ตรวจสอบย้อนกลับได้จากเอกสาร"],
+        ["Confidence-safe fallback","หากไม่มีข้อมูล ระบบแจ้งว่าไม่มีข้อมูลในฐานความรู้"],
+        ["Suggested next step","เสนอคำถามถัดไปหรือเส้นทางเข้าสู่ Use Case อื่น"]
+      ],
+      layerHint: "Suggested demo focus: Layer 1 + Layer 2",
+      layer: "layer1"
+    },
+    diagnose: {
+      title: "Use Case 2: Diagnose My Business",
+      desc: "AI ถาม 5–7 คำถาม → สรุป Business Health Card และปัญหาที่ควรแก้ก่อน",
+      tags: ["Guided Assessment", "5–7 Questions", "Business Health Card", "Prioritized Pain Point"],
+      journey: [
+        ["Step 1","Start diagnose","ผู้ใช้เลือกเมนู 'ประเมินธุรกิจ'"],
+        ["Step 2","AI interviews","ถามคำถามเรื่องยอดขาย ลูกค้า ต้นทุน สต็อก และปัญหาหลัก"],
+        ["Step 3","Summarize","AI สรุปคะแนนสภาพธุรกิจเป็นการ์ดอ่านง่าย"],
+        ["Step 4","Prioritize fix","ระบุ 1–2 ปัญหาสำคัญที่ควรเริ่มแก้ก่อน"]
+      ],
+      outputs: [
+        ["Business Health Card","สรุปสถานะ เช่น การตลาด 3/5 · การผลิต 2/5 · ลูกค้า 4/5"],
+        ["Top Issue","ชี้ปัญหาหลักที่ควรแก้ก่อนเพื่อให้เห็นผลเร็ว"],
+        ["Route to Mission","เชื่อมต่อไปสู่ภารกิจ 7 วันอัตโนมัติ"]
+      ],
+      layerHint: "Suggested demo focus: Layer 1 + Layer 2 + Layer 4",
+      layer: "layer2"
+    },
+    mission: {
+      title: "Use Case 3: Start Improvement Mission",
+      desc: "MiAi สร้างภารกิจเล็ก 7 วัน เช่น ลดเวลารอ จัดสต็อก หรือทำ Visual Management",
+      tags: ["7-day Plan", "Daily Check-in", "Behavior Change", "Actionable Mission"],
+      journey: [
+        ["Step 1","Generate mission","AI สร้างภารกิจที่สอดคล้องกับปัญหาหลักของธุรกิจ"],
+        ["Step 2","Daily action","ผู้ใช้ได้รับ task สั้น ๆ ทำได้จริงในแต่ละวัน"],
+        ["Step 3","Track progress","MiAi เช็กอินและให้กำลังใจระหว่างทำภารกิจ"],
+        ["Step 4","Wrap-up","สรุปผลลัพธ์และแนะนำภารกิจถัดไป"]
+      ],
+      outputs: [
+        ["7-day Mission Board","รายการงานวัน 1–7 พร้อมเป้าหมายชัดเจน"],
+        ["Small-win mindset","เปลี่ยนจากคำแนะนำทั่วไปเป็น action ที่ทำได้ทันที"],
+        ["Completion summary","สรุปสิ่งที่ทำแล้วและสิ่งที่ควรต่อยอด"]
+      ],
+      layerHint: "Suggested demo focus: Layer 1 + Layer 2",
+      layer: "layer1"
+    },
+    similar: {
+      title: "Use Case 4: Learn from Similar Business",
+      desc: "ระบบเลือก Case Study หรือศูนย์เรียนรู้ที่ใกล้กับประเภทธุรกิจและปัญหาของผู้ใช้",
+      tags: ["Case-based Learning", "Relevant Match", "Nearby Learning Center", "Inspiration to Action"],
+      journey: [
+        ["Step 1","Identify profile","AI ใช้ประเภทกิจการและ pain point ของผู้ใช้"],
+        ["Step 2","Search similar","ดึง case study หรือศูนย์เรียนรู้ที่ใกล้เคียงที่สุด"],
+        ["Step 3","Recommend","สรุปว่าเคสนี้แก้ปัญหาอย่างไรและอะไรนำมาปรับใช้ได้"],
+        ["Step 4","Learn more","เปิดเส้นทางดูรายละเอียดหรือจองเยี่ยมชม"]
+      ],
+      outputs: [
+        ["Relevant case study","ผู้ใช้เห็นตัวอย่างที่คล้ายกับตัวเอง ไม่ใช่คำแนะนำกว้าง ๆ"],
+        ["Learning center recommendation","แนะนำจุดเรียนรู้หรือแหล่งดูงาน"],
+        ["Bridge to TSI service","เชื่อมต่อจากการเรียนรู้ไปสู่การขอคำแนะนำเชิงลึก"]
+      ],
+      layerHint: "Suggested demo focus: Layer 2 + Layer 3",
+      layer: "layer3"
+    },
+    connect: {
+      title: "Use Case 5: Connect to TSI",
+      desc: "เมื่อ AI ประเมินว่าต้องการความช่วยเหลือเชิงลึก → สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญได้ทันที",
+      tags: ["Lead Qualification", "Human Handoff", "Project Enrollment", "Appointment Booking"],
+      journey: [
+        ["Step 1","Detect need","AI พบว่าผู้ใช้ต้องการการช่วยเหลือเชิงลึกกว่าคำแนะนำทั่วไป"],
+        ["Step 2","Offer paths","แสดงทางเลือก สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญ"],
+        ["Step 3","Capture intent","เก็บข้อมูลเบื้องต้นและยืนยันความต้องการ"],
+        ["Step 4","Send to TSI","ส่งต่อ lead เข้าระบบของ TSI เพื่อ follow-up"]
+      ],
+      outputs: [
+        ["Warm lead conversion","AI ไม่ได้จบแค่ตอบ แต่ต่อยอดเป็นการเชื่อมกับบริการจริง"],
+        ["Booking / registration CTA","มี call-to-action ชัดเจนในจังหวะที่ผู้ใช้พร้อม"],
+        ["Operational handoff","ทีม TSI เห็นข้อมูลและติดตามต่อได้ง่าย"]
+      ],
+      layerHint: "Suggested demo focus: Layer 1 + Layer 2 + Layer 4",
+      layer: "layer4"
+    }
+  };
+
+  const useCaseButtons = document.querySelectorAll('.uc-card');
+  const demoTitle = document.getElementById('demoTitle');
+  const demoDesc = document.getElementById('demoDesc');
+  const demoTags = document.getElementById('demoTags');
+  const demoJourney = document.getElementById('demoJourney');
+  const demoOutputs = document.getElementById('demoOutputs');
+  const demoLayerHint = document.getElementById('demoLayerHint');
+  const openSuggestedLayer = document.getElementById('openSuggestedLayer');
+  let currentCase = "ask";
+
+  function renderUseCase(key){
+    currentCase = key;
+    const item = useCases[key];
+    useCaseButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.key === key));
+
+    demoTitle.textContent = item.title;
+    demoDesc.textContent = item.desc;
+    demoTags.innerHTML = item.tags.map(tag => `<div class="demo-kpi">${tag}</div>`).join('');
+    demoJourney.innerHTML = item.journey.map(s => `
+      <div class="step">
+        <small>${s[0]}</small>
+        <b>${s[1]}</b>
+        <span>${s[2]}</span>
+      </div>
+    `).join('');
+    demoOutputs.innerHTML = item.outputs.map(o => `
+      <div class="out">
+        <b>${o[0]}</b>
+        <p>${o[1]}</p>
+      </div>
+    `).join('');
+    demoLayerHint.textContent = item.layerHint;
+
+    if(key === "ask"){
+      resetMessages([
+        {role:"bot",text:"สวัสดีครับ ผมช่วยค้นหาแนวทางจาก “วิถีชุมชนพัฒน์ (TSI Way)” ได้ครับ ลองเลือกหัวข้อหรือพิมพ์คำถามได้เลย"},
+        {role:"user",text:"ยอดขายตก ควรเริ่มแก้จากตรงไหน?"},
+        {role:"bot",text:"แนะนำให้เริ่มจาก 3 ขั้นตอน: ตรวจสอบลูกค้าหลัก, ทบทวนคุณค่าของสินค้า และแยกปัญหาระหว่าง “คนไม่รู้จัก” กับ “รู้จักแต่ยังไม่ซื้อ”",cite:"อ้างอิง: TSI Way · การวิเคราะห์ปัญหาธุรกิจเบื้องต้น · v1.4"}
+      ]);
+    } else if(key === "diagnose"){
+      resetMessages([
+        {role:"bot",text:"ได้เลยครับ เดี๋ยวผมช่วยประเมินสุขภาพธุรกิจเบื้องต้น โดยจะถาม 6 คำถามสั้น ๆ"},
+        {role:"user",text:"เริ่มได้เลย"},
+        {role:"bot",text:"1) ช่วง 3 เดือนที่ผ่านมา ยอดขายเพิ่มขึ้น คงที่ หรือ ลดลง? 2) ลูกค้าซื้อซ้ำมากน้อยแค่ไหน? 3) มีปัญหาสต็อกหรือไม่?"}
+      ]);
+      showLayer("layer1");
+    } else if(key === "mission"){
+      resetMessages([
+        {role:"bot",text:"จากการประเมิน ผมแนะนำ “7-Day Improvement Mission: ลดเวลารอลูกค้า”"},
+        {role:"bot",text:"Day 1 เก็บข้อมูลเวลารอจริง · Day 2 หา 3 จุดคอขวด · Day 3 ทดลองปรับขั้นตอนรับออเดอร์",cite:"Mission generated from diagnose result + TSI guidance"}
+      ]);
+      showLayer("layer1");
+    } else if(key === "similar"){
+      resetMessages([
+        {role:"bot",text:"ผมพบกรณีศึกษาที่คล้ายกับธุรกิจของคุณ คือร้านชุมชนที่มีปัญหาลูกค้าไม่กลับมาซื้อซ้ำ"},
+        {role:"bot",text:"แนะนำให้ดู Case Study: การสร้างเหตุผลให้ลูกค้ากลับมาซื้อ และศูนย์เรียนรู้เครือข่ายที่ใกล้คุณที่สุด",cite:"Sources: Case Study Library · Learning Center Catalog"}
+      ]);
+      showLayer("layer3");
+    } else if(key === "connect"){
+      resetMessages([
+        {role:"bot",text:"จากอาการที่เล่า ดูเหมือนว่าธุรกิจของคุณอาจต้องการคำปรึกษาเชิงลึกเพิ่มเติมจากทีม TSI"},
+        {role:"bot",text:"คุณต้องการ 1) สมัครโครงการ 2) จองเยี่ยมชม 3) นัดผู้เชี่ยวชาญ หรือ 4) ให้เจ้าหน้าที่ติดต่อกลับ ?",cite:"Human handoff suggested based on assessment confidence"}
+      ]);
+      showLayer("layer4");
+    }
+  }
+
+  useCaseButtons.forEach(btn => btn.addEventListener('click', ()=>renderUseCase(btn.dataset.key)));
+
+  openSuggestedLayer.addEventListener('click', ()=>{
+    showLayer(useCases[currentCase].layer);
+    document.getElementById('prototype').scrollIntoView({behavior:'smooth'});
+  });
+
+  const input = document.getElementById('chatInput');
+  const messages = document.getElementById('messages');
+
+  function resetMessages(items){
+    messages.innerHTML = '';
+    items.forEach(it => appendMessage(it.role, it.text, it.cite));
+  }
+
+  function appendMessage(role, text, cite){
+    const el = document.createElement('div');
+    el.className = `bubble ${role === 'user' ? 'user' : 'bot'}`;
+    el.innerHTML = text + (cite ? `<span class="cite">${cite}</span>` : '');
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function sendMessage(text){
+    const value = (text || input.value).trim();
+    if(!value) return;
+    appendMessage('user', value);
+    input.value='';
+    messages.scrollTop=messages.scrollHeight;
+
+    setTimeout(()=>{
+      const lower=value.toLowerCase();
+      if(lower.includes('ประเมิน')){
+        appendMessage('bot','ได้เลยครับ ผมจะถาม 6 คำถามสั้น ๆ เพื่อสรุป Business Health Card ให้คุณ');
+      } else if(lower.includes('ภารกิจ') || lower.includes('mission')){
+        appendMessage('bot','ผมสามารถสร้างภารกิจ 7 วันให้ได้ เช่น ลดเวลารอ จัดสต็อก หรือทำ Visual Management','Suggested next action based on your issue');
+      } else if(lower.includes('กฎหมาย') || lower.includes('ภาษี')){
+        appendMessage('bot','ไม่มีข้อมูลนี้ในฐานความรู้ TSI ที่อนุมัติไว้ กรุณาติดต่อเจ้าหน้าที่เพื่อรับคำแนะนำเพิ่มเติม','Fallback triggered · No approved evidence found');
+      } else if(lower.includes('โครงการ') || lower.includes('นัด')){
+        appendMessage('bot','ได้ครับ ผมสามารถช่วยพาคุณไปสู่ขั้นตอนสมัครโครงการ จองเยี่ยมชม หรือประสานผู้เชี่ยวชาญ','Connect to TSI pathway');
+      } else {
+        appendMessage('bot','จากฐานความรู้ TSI แนะนำให้เริ่มจากการเก็บข้อมูลลูกค้าเดิม แยกปัญหาให้ชัด และทดลองหนึ่งแนวทางในระยะสั้นก่อนวัดผล','อ้างอิง: TSI Way · v1.4 · คำแนะนำเบื้องต้น ไม่มีผลผูกพันทางกฎหมาย');
+      }
+    },650);
+  }
+
+  document.getElementById('sendBtn').onclick=()=>sendMessage();
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage()});
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>sendMessage(c.textContent));
+
+  document.getElementById('kbBtn').onclick=()=>{
+    const q=document.getElementById('kbSearch').value.trim();
+    const r=document.getElementById('results');
+    r.innerHTML = q ? `
+      <div class="result"><b>Match 91% · TSI Way</b><p>พบเนื้อหาที่เกี่ยวข้องกับ “${q}” จากเอกสารที่ผ่านการอนุมัติแล้ว</p></div>
+      <div class="result"><b>Match 79% · คู่มือวางแผนการตลาดชุมชน</b><p>ระบบจะส่งเฉพาะข้อความที่มีหลักฐานเพียงพอเข้าสู่ขั้นตอนสร้างคำตอบ</p></div>
+      <div class="result"><b>Match 73% · Case Study Library</b><p>หากคำค้นสัมพันธ์กับปัญหาธุรกิจ ระบบสามารถแนะนำกรณีศึกษาหรือศูนย์เรียนรู้ที่ใกล้เคียงได้</p></div>`
+      : '<div class="result"><b>No query</b><p>กรุณาระบุคำค้น</p></div>';
+  };
+
+  renderUseCase("ask");
+</script>
+</body>
+</html>
