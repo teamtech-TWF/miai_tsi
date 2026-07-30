@@ -41,6 +41,7 @@
     .media-slide .wrap{width:min(var(--container),100%);gap:22px}
     .media-slide .hero-card{background:rgba(255,255,255,.88);padding:18px}
     .media-slide .hero-card img{width:100%;height:min(76vh,860px);object-fit:contain;object-position:center}
+    .zoomable-image{display:block;width:100%;border:0;cursor:zoom-in}
     .media-caption{font-size:14px;line-height:1.45;color:var(--muted);font-weight:700;text-align:center}
     .story-slide .wrap{grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);align-items:center;gap:52px}
     .story-stage{position:relative;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,241,245,.86));border:1px solid rgba(95,127,153,.18);border-radius:34px;box-shadow:var(--shadow);padding:18px;overflow:hidden}
@@ -73,12 +74,20 @@
     @keyframes nodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
     .text-slide .wrap,.ops-slide .wrap{width:min(var(--container),100%)}
     .text-slide .panel,.ops-slide .panel{width:100%}
-    .vision-slide .wrap{min-height:100%}
-    .vision-slide .grid-2{align-items:stretch}
-    .vision-stage{display:grid;align-content:center;min-height:calc(100vh - 168px)}
-    .vision-slide .lead{max-width:980px}
-    .vision-slide .layers{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-    .vision-slide .layer{min-height:120px}
+    .vision-slide{overflow:hidden;color:#fff;background:#172433}
+    .vision-slide::before{background-image:linear-gradient(90deg,rgba(18,29,42,.9),rgba(18,29,42,.64) 44%,rgba(18,29,42,.24)),url('assets/hero-community.png');background-size:cover;background-position:center;opacity:1}
+    .vision-slide .wrap{min-height:100%;align-items:end}
+    .vision-slide .grid-2{align-items:end}
+    .vision-stage{display:grid;align-content:end;min-height:calc(100vh - 168px);max-width:1040px}
+    .opening-label{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+    .opening-label span{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff2e3;border-radius:999px;padding:9px 12px;font-size:13px;font-weight:900;backdrop-filter:blur(12px)}
+    .vision-slide h1{font-size:clamp(72px,12vw,164px);line-height:.82;color:#fff;letter-spacing:-.06em;text-shadow:0 18px 48px rgba(0,0,0,.28)}
+    .vision-slide h1 span{color:#ff9b54}
+    .opening-subtitle{margin-top:24px;font-size:clamp(22px,3.2vw,44px);line-height:1.12;color:#fff;font-weight:900;letter-spacing:-.035em;max-width:960px}
+    .vision-slide .lead{max-width:840px;margin-top:18px;color:#eaf1f5;font-size:clamp(17px,2vw,26px);line-height:1.42;font-weight:700}
+    .opening-footer{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+    .opening-footer span{padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:900;backdrop-filter:blur(12px)}
+    .vision-slide .accent{color:#ffb06c}
     .line-slide .wrap{min-height:100%}
     .line-slide .panel{padding:44px 48px}
     .line-slide .lead{max-width:1100px}
@@ -186,12 +195,16 @@
     .demo-option p{margin-top:12px;color:#6d503c;font-size:13px;line-height:1.5;font-weight:800}
     .quote{font-size:clamp(26px,5vw,52px);line-height:1.08;color:var(--navy);font-weight:900;letter-spacing:-.035em}.quote small{display:block;font-size:clamp(16px,2vw,24px);line-height:1.4;color:#53687b;font-weight:700;margin-top:16px;letter-spacing:0}.cta{display:inline-flex;margin-top:28px;background:linear-gradient(135deg,var(--orange),#ff9b54);color:#fff;padding:14px 18px;border-radius:999px;font-weight:900;box-shadow:0 16px 36px rgba(242,101,34,.22)}
     .controls{position:fixed;z-index:20;right:18px;bottom:18px;transform:none;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.86);padding:8px 10px;border-radius:999px;box-shadow:0 18px 50px rgba(39,63,87,.18);backdrop-filter:blur(14px)}.controls button{border:0;background:#fff;color:var(--navy);width:42px;height:42px;border-radius:50%;font-size:19px;font-weight:900;cursor:pointer}.controls button:hover{background:var(--orange);color:#fff}.counter{font-size:13px;font-weight:900;color:#64778a;min-width:52px;text-align:center}.progress{position:fixed;z-index:21;left:0;top:0;height:5px;background:linear-gradient(90deg,var(--orange),#ffb06c);width:0%}
+    .lightbox{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(12,20,30,.92);backdrop-filter:blur(10px)}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:18px;background:#fff;box-shadow:0 28px 80px rgba(0,0,0,.36)}
+    .lightbox button{position:absolute;right:24px;top:24px;width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:var(--navy);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.24)}
     @media (min-width:820px){
       body{overflow-x:hidden}.slide{min-height:100vh;padding:54px 52px}.grid-2{grid-template-columns:1fr;gap:42px}.split-slide .grid-2{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.ops-slide .grid-2{grid-template-columns:1.05fr .95fr}.vision-slide .grid-2,.line-slide .grid-2,.ai-slide .grid-2{grid-template-columns:minmax(0,1fr)}.slide.active{outline:none}.feature-grid{grid-template-columns:repeat(2,1fr)}.metric-grid{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(2,1fr)}.panel{padding:34px}.hero-card.lift{transform:translateY(8px)}
     }
     @media (min-width:1180px){.slide{padding:64px 78px}.grid-2{gap:58px}.split-slide .grid-2,.ops-slide .grid-2{gap:58px}.vision-slide .grid-2,.line-slide .grid-2,.ai-slide .grid-2{grid-template-columns:minmax(0,1fr)}.journey{grid-template-columns:repeat(4,1fr)}.line-slide .journey{grid-template-columns:repeat(4,minmax(0,1fr))}.ai-slide .feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.step{padding:18px}.step .dot{position:static;margin-bottom:12px}.step{min-height:160px}.line-slide .step{min-height:220px;padding:24px}.ai-slide .feature{min-height:220px;padding:24px}.metric-grid{grid-template-columns:repeat(4,1fr)}.ecosystem-slide .value-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     @media (max-width:819px){.deck{scroll-snap-type:y proximity}.controls{left:50%;right:auto;bottom:14px;transform:translateX(-50%)}.slide{border-bottom:1px solid rgba(95,127,153,.14)}.hero-card{border-radius:22px}.desktop-only{display:none}.story-slide .wrap,.plan-slide .wrap{grid-template-columns:1fr;gap:26px}.ecosystem-top,.value-grid,.appendix-grid{grid-template-columns:1fr}.bridge-arrow{font-size:34px}.webview-frame iframe{height:68vh;min-height:520px}}
-    @media (max-width:819px){.vision-stage{min-height:auto}.vision-slide .layers,.line-slide .journey,.ai-slide .feature-grid,.demo-option-grid{grid-template-columns:1fr}.line-slide .panel,.ai-slide .panel,.story-panel,.plan-slide .panel{padding:24px 0}.journey-block{grid-template-columns:56px minmax(0,1fr)}.journey-num{width:56px;height:56px;font-size:20px}}
+    @media (max-width:819px){.vision-stage{min-height:calc(100svh - 144px)}.vision-slide .layers,.line-slide .journey,.ai-slide .feature-grid,.demo-option-grid{grid-template-columns:1fr}.line-slide .panel,.ai-slide .panel,.story-panel,.plan-slide .panel{padding:24px 0}.journey-block{grid-template-columns:56px minmax(0,1fr)}.journey-num{width:56px;height:56px;font-size:20px}}
     @media (max-width:480px){.slide{padding:56px 16px 88px}.panel{padding:20px;border-radius:22px}.layer{grid-template-columns:44px 1fr}.num{width:44px;height:44px;font-size:19px;border-radius:14px}.pill{font-size:12px}.controls{gap:8px;padding:6px 8px}.controls button{width:38px;height:38px}}
   </style>
 </head>
@@ -201,14 +214,18 @@
     <section class="slide active text-slide vision-slide" data-title="Vision">
       <div class="wrap grid-2">
         <div class="vision-stage">
-          <p class="eyebrow">Pitch Concept</p>
-          <h1>MiAi <span>2.0</span></h1>
-          <p class="lead" style="margin-top:22px">TSI Trusted Business Advisory Platform — จาก Web Chat สู่ LINE AI Advisor ที่ <span class="accent">เข้าถึงง่าย เชื่อถือได้ และตรวจสอบได้</span></p>
-          <div class="layers">
-            <div class="layer"><div class="num">01</div><div><h3>LINE Experience</h3><p>Access & conversation experience</p></div></div>
-            <div class="layer"><div class="num">02</div><div><h3>AI Advisory</h3><p>Claude, RAG, prompt control, answer policy</p></div></div>
-            <div class="layer"><div class="num">03</div><div><h3>Knowledge Governance</h3><p>Version, approval, traceability</p></div></div>
-            <div class="layer"><div class="num">04</div><div><h3>Trust & Operations</h3><p>Monitoring, security, cost, auditability</p></div></div>
+          <div class="opening-label">
+            <span>TSI</span>
+            <span>AI Business Advisor on LINE OA</span>
+          </div>
+          <h1> <span class="accent">TSI</span> MiAi <span>2.0</span></h1>
+          <p class="opening-subtitle">Trusted Business Advisory Platform</p>
+          <p class="lead">LINE AI Advisor ที่ <span class="accent">เข้าถึงง่าย เชื่อถือได้ และตรวจสอบได้</span></p>
+          <div class="opening-footer">
+            <span>LINE-first Experience</span>
+            <span>TSI Knowledge Only</span>
+            <span>Traceable AI Answers</span>
+            <span>Minimum-to-Scale Operations</span>
           </div>
         </div>
       </div>
@@ -269,49 +286,15 @@
 
     <section class="slide media-slide" data-title="MiAi 2.0 Ecosystem Image">
       <div class="wrap">
-        <div class="hero-card lift"><img src="assets/MiAi 2.0 EcoSystem.png" alt="MiAi 2.0 connected business advisory ecosystem diagram"></div>
+        <button class="hero-card lift zoomable-image" type="button" data-fullscreen-image="assets/MiAi 2.0 EcoSystem.png" aria-label="Open MiAi 2.0 ecosystem image full screen"><img src="assets/MiAi 2.0 EcoSystem.png" alt="MiAi 2.0 connected business advisory ecosystem diagram"></button>
         <p class="media-caption">MiAi 2.0 ecosystem visual แสดงการเชื่อมต่อจาก content, advisory flow, case matching และบริการต่อเนื่องของ TSI</p>
-      </div>
-    </section>
-
-    <section class="slide webview-slide" data-title="Prototype Webview">
-      <div class="wrap">
-        <div>
-          <span class="kicker">Slide 5 — Prototype Webview</span>
-          <h2>Use case demo by budget option</h2>
-          <p class="plan-intro">ใช้สไลด์นี้เป็น demo map ก่อนเปิด prototype: Option 1 แสดง lean launch flow ส่วน Option 2 เพิ่ม starter personalization ผ่าน Zone 2</p>
-          <div class="demo-option-grid">
-            <div class="demo-option">
-              <strong>Option 1 — Lean Required Launch</strong>
-              <div class="zone-line">Zone 1 Core AI Q&amp;A + Zone 3 LINE OA Essentials</div>
-              <ol>
-                <li>Use Case 1: Ask MiAi</li>
-                <li>Use Case 5: Connect to TSI</li>
-              </ol>
-              <p>Proves trusted Q&amp;A, source reference, fallback, and LINE next action.</p>
-            </div>
-            <div class="demo-option">
-              <strong>Option 2 — Recommended Production Launch</strong>
-              <div class="zone-line">Zone 1 Trusted AI + Zone 2 Starter Assistant + Zone 3 LINE Experience</div>
-              <ol>
-                <li>Use Case 1: Ask MiAi</li>
-                <li>Use Case 2: Diagnose My Business</li>
-                <li>Use Case 3: Start Improvement Mission</li>
-              </ol>
-              <p>Proves starter personalization with business profile, guided prompts, and simple recommendation.</p>
-            </div>
-          </div>
-        </div>
-        <div class="webview-frame">
-          <iframe src="tsi_4layer_paper_prototype_usecases.html" title="TSI 4 Layer Paper Prototype Use Cases"></iframe>
-        </div>
       </div>
     </section>
 
     <section class="slide plan-slide" data-title="Investment & Delivery Plan">
       <div class="wrap">
         <div class="panel">
-          <span class="kicker plan-kicker">Slide 6 — Investment & Delivery Plan</span>
+          <span class="kicker plan-kicker">Slide 5 — Investment & Delivery Plan</span>
           <h2>Delivery phasing</h2>
           <p class="plan-intro">ทั้งสอง option ใช้ Phase 0 ร่วมกัน จากนั้น Option 1 จะเน้น launch แบบ lean ส่วน Option 2 จะเพิ่ม Zone 2 Starter Personal Assistant ก่อน go-live</p>
           <div class="phase-list">
@@ -393,9 +376,43 @@
     <section class="slide appendix-zone" data-title="Appendix Zone">
       <div class="wrap">
         <div class="panel">
-          <span class="kicker" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.16);color:#fff2e3">Slide 7 — Backup Slides</span>
+          <span class="kicker" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.16);color:#fff2e3">Slide 6 — Backup Slides</span>
           <h2>Appendix Zone</h2>
           <p class="lead">รายละเอียดต่อไปนี้ใช้สำหรับตอบคำถามเชิงลึกหลังจบ pitch หลัก โดยเน้น logic ของ MiAi 2.0 ในฐานะ advisory system ไม่ใช่แค่ chatbot</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide webview-slide" data-title="Appendix — Prototype Webview">
+      <div class="wrap">
+        <div>
+          <span class="kicker">Appendix — Prototype Webview</span>
+          <h2>Use case demo by budget option</h2>
+          <p class="plan-intro">ใช้สไลด์นี้เป็น demo map ก่อนเปิด prototype: Option 1 แสดง lean launch flow ส่วน Option 2 เพิ่ม starter personalization ผ่าน Zone 2</p>
+          <div class="demo-option-grid">
+            <div class="demo-option">
+              <strong>Option 1 — Lean Required Launch</strong>
+              <div class="zone-line">Zone 1 Core AI Q&amp;A + Zone 3 LINE OA Essentials</div>
+              <ol>
+                <li>Use Case 1: Ask MiAi</li>
+                <li>Use Case 5: Connect to TSI</li>
+              </ol>
+              <p>Proves trusted Q&amp;A, source reference, fallback, and LINE next action.</p>
+            </div>
+            <div class="demo-option">
+              <strong>Option 2 — Recommended Production Launch</strong>
+              <div class="zone-line">Zone 1 Trusted AI + Zone 2 Starter Assistant + Zone 3 LINE Experience</div>
+              <ol>
+                <li>Use Case 1: Ask MiAi</li>
+                <li>Use Case 2: Diagnose My Business</li>
+                <li>Use Case 3: Start Improvement Mission</li>
+              </ol>
+              <p>Proves starter personalization with business profile, guided prompts, and simple recommendation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="webview-frame">
+          <iframe src="tsi_4layer_paper_prototype_usecases.html" title="TSI 4 Layer Paper Prototype Use Cases"></iframe>
         </div>
       </div>
     </section>
@@ -477,6 +494,11 @@
     <button type="button" id="next" aria-label="Next slide">›</button>
   </nav>
 
+  <div class="lightbox" id="imageLightbox" aria-modal="true" role="dialog" aria-label="Full screen image preview">
+    <button type="button" id="closeLightbox" aria-label="Close full screen image">×</button>
+    <img id="lightboxImage" src="" alt="">
+  </div>
+
   <script>
     const slides = [...document.querySelectorAll('.slide')];
     const counter = document.getElementById('counter');
@@ -506,7 +528,28 @@
     slides.forEach((slide)=>observer.observe(slide));
     document.getElementById('next').addEventListener('click',()=>show(index+1));
     document.getElementById('prev').addEventListener('click',()=>show(index-1));
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightbox = document.getElementById('closeLightbox');
+    document.querySelectorAll('[data-fullscreen-image]').forEach(trigger=>{
+      trigger.addEventListener('click',()=>{
+        const img = trigger.querySelector('img');
+        lightboxImage.src = trigger.dataset.fullscreenImage;
+        lightboxImage.alt = img ? img.alt : '';
+        lightbox.classList.add('open');
+      });
+    });
+    function hideLightbox(){
+      lightbox.classList.remove('open');
+      lightboxImage.src = '';
+    }
+    closeLightbox.addEventListener('click',hideLightbox);
+    lightbox.addEventListener('click',(e)=>{
+      if(e.target === lightbox) hideLightbox();
+    });
     window.addEventListener('keydown',(e)=>{
+      if(e.key==='Escape' && lightbox.classList.contains('open')){ hideLightbox(); return; }
+      if(lightbox.classList.contains('open')) return;
       if(e.key==='ArrowRight' || e.key===' '){ e.preventDefault(); show(index+1); }
       if(e.key==='ArrowLeft'){ e.preventDefault(); show(index-1); }
     });
