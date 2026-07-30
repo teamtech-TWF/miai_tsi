@@ -367,6 +367,14 @@ Architecture รองรับการต่อยอดไปสู่:
 
 Advanced personalization, LINE MINI App, CRM, booking, campaign automation, community, and advanced BI remain future roadmap and should not be shown as an immediate purchase total unless TSI requests those modules.
 
+### Use Case Demo by Option
+
+| Option | Demo Use Cases | Demo Message |
+|---|---|---|
+| Option 1 — Lean Required Launch | Use Case 1: Ask MiAi; Use Case 5: Connect to TSI | Show core Q&A from TSI knowledge, source reference, fallback, and LINE OA next action |
+| Option 2 — Recommended Production Launch | Use Case 1: Ask MiAi; Use Case 2: Diagnose My Business; Use Case 3: Start Improvement Mission | Show trusted Q&A plus Zone 2 starter business profile, guided prompts, and simple personalized recommendation |
+| Future Roadmap | Use Case 4: Learn from Similar Business; advanced Connect to TSI flows | Keep case matching, MINI App, CRM, booking, campaign, community, and BI outside immediate launch demo |
+
 ### Phase Cost Reference
 
 | Phase | Scope Position | Reference Cost |
@@ -380,15 +388,23 @@ Advanced personalization, LINE MINI App, CRM, booking, campaign automation, comm
 
 Recurring cost should be separated from development cost because real usage depends on active users, message volume, document volume, monitoring retention, and SLA expectation after go-live.
 
-| Cost Item | Estimated Monthly Cost |
-|---|---:|
-| Claude API and embedding usage | 15,000–60,000 THB |
-| Cloud infrastructure, vector database, logging, monitoring | 25,000–70,000 THB |
-| Maintenance, support, and knowledge update service | 60,000–120,000 THB |
-| LINE Messaging API | Depends on TSI package and message volume |
-| **Estimated Monthly Baseline** | **100,000–250,000 THB / month** |
+To reduce monthly cost, the proposal should present a minimum-to-scale operating model: open-source/self-hosted components by default, paid API only when higher answer quality or fallback is required, and support/SLA separated from the baseline.
 
-Third-party usage cost should not be bundled into development cost until the expected launch volume is confirmed.
+| Cost Model | Components | Estimated Monthly Cost |
+|---|---|---:|
+| Minimum open-source baseline | Small cloud VM, open-source model / embeddings where feasible, Postgres + pgvector, open-source monitoring | 15,000–35,000 THB |
+| Hybrid paid-source fallback | Claude API for selected answers, managed backup / logs, higher reliability cloud resources | 35,000–75,000 THB |
+| LINE Messaging API | Keep cost low by prioritizing reply messages; push / broadcast depends on TSI package and volume | Separate |
+| Maintenance / SLA Retainer | Optional monthly support, knowledge update service, incident response | Separate or on-demand |
+| **Recommended Minimum Launch Assumption** | Open-source baseline with limited paid-source fallback | **20,000–45,000 THB / month** |
+
+Scale triggers:
+
+- Move from minimum baseline to hybrid paid-source when answer quality, response consistency, or sensitive advisory topics require stronger model quality.
+- Increase cloud and monitoring budget when active users, document volume, log retention, or uptime requirements increase.
+- Add monthly retainer only when TSI requires guaranteed response time, regular knowledge updates, or incident handling.
+
+Third-party usage cost should not be bundled into development cost until the expected launch volume is confirmed. Maintenance should be offered as either on-demand support or a separate monthly retainer, not hidden inside the base recurring estimate.
 
 ### Phase 3 — Future Expansion
 

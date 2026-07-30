@@ -97,6 +97,8 @@
       font-size:12px;font-weight:900;color:#56616D;margin-bottom:12px
     }
     .uc-card.active .uc-no{background:var(--orange);color:#fff}
+    .uc-option{display:inline-flex;margin-bottom:9px;border-radius:999px;padding:5px 8px;background:#FFF1E8;color:var(--orange);font-size:10px;font-weight:900}
+    .uc-card.active .uc-option{background:#fff;color:var(--orange)}
     .uc-card b{display:block;font-size:14px;margin-bottom:6px}
     .uc-card p{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
 
@@ -307,7 +309,7 @@
     <div class="section-title">
       <div>
         <h3>Use Case Demo</h3>
-        <p>เลือก Use Case เพื่อดูเส้นทางการใช้งาน, ผลลัพธ์ที่ผู้ใช้จะได้รับ, และ layer ที่เกี่ยวข้องในการเดโม</p>
+        <p>เลือก Use Case ตาม option ที่ต้องการ demo: Option 1 เน้น lean launch, Option 2 เพิ่ม Zone 2 starter personalization</p>
       </div>
       <span class="section-pill">Pitch-ready Scenarios</span>
     </div>
@@ -315,26 +317,31 @@
     <div class="usecase-grid" id="usecaseGrid">
       <button class="uc-card active" data-key="ask">
         <div class="uc-no">01</div>
+        <span class="uc-option">Option 1 + 2</span>
         <b>Ask MiAi</b>
         <p>ผู้ประกอบการถามปัญหา และ AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง</p>
       </button>
       <button class="uc-card" data-key="diagnose">
         <div class="uc-no">02</div>
+        <span class="uc-option">Option 2</span>
         <b>Diagnose My Business</b>
         <p>AI ถาม 5–7 คำถาม และสรุป Business Health Card</p>
       </button>
       <button class="uc-card" data-key="mission">
         <div class="uc-no">03</div>
+        <span class="uc-option">Option 2</span>
         <b>Start Improvement Mission</b>
         <p>สร้างภารกิจ 7 วัน เพื่อเริ่มเปลี่ยนแปลงแบบเล็กแต่ทำได้จริง</p>
       </button>
       <button class="uc-card" data-key="similar">
         <div class="uc-no">04</div>
+        <span class="uc-option">Future Roadmap</span>
         <b>Learn from Similar Business</b>
         <p>แนะนำ case study หรือศูนย์เรียนรู้ที่ใกล้เคียงกับบริบทธุรกิจ</p>
       </button>
       <button class="uc-card" data-key="connect">
         <div class="uc-no">05</div>
+        <span class="uc-option">Option 1 + 2</span>
         <b>Connect to TSI</b>
         <p>เมื่อประเมินว่าต้องการความช่วยเหลือเชิงลึก ระบบพาไปสู่บริการของ TSI</p>
       </button>
@@ -528,7 +535,7 @@
     ask: {
       title: "Use Case 1: Ask MiAi",
       desc: "ผู้ประกอบการถามปัญหา → AI ตอบจาก TSI Way พร้อมแหล่งอ้างอิง",
-      tags: ["Entry via LINE OA", "Citation in Answer", "Fast Q&A", "Low-friction Start"],
+      tags: ["Option 1 + 2", "Entry via LINE OA", "Citation in Answer", "Fast Q&A", "Low-friction Start"],
       journey: [
         ["Step 1","User asks","พิมพ์คำถามธุรกิจ เช่น ยอดขายตก ลูกค้าหาย ต้นทุนสูง"],
         ["Step 2","AI retrieves","ค้นหาเนื้อหาที่เกี่ยวข้องจาก TSI Way และเอกสารอนุมัติ"],
@@ -546,7 +553,7 @@
     diagnose: {
       title: "Use Case 2: Diagnose My Business",
       desc: "AI ถาม 5–7 คำถาม → สรุป Business Health Card และปัญหาที่ควรแก้ก่อน",
-      tags: ["Guided Assessment", "5–7 Questions", "Business Health Card", "Prioritized Pain Point"],
+      tags: ["Option 2", "Zone 2 Starter", "Guided Assessment", "Business Health Card", "Prioritized Pain Point"],
       journey: [
         ["Step 1","Start diagnose","ผู้ใช้เลือกเมนู 'ประเมินธุรกิจ'"],
         ["Step 2","AI interviews","ถามคำถามเรื่องยอดขาย ลูกค้า ต้นทุน สต็อก และปัญหาหลัก"],
@@ -564,7 +571,7 @@
     mission: {
       title: "Use Case 3: Start Improvement Mission",
       desc: "MiAi สร้างภารกิจเล็ก 7 วัน เช่น ลดเวลารอ จัดสต็อก หรือทำ Visual Management",
-      tags: ["7-day Plan", "Daily Check-in", "Behavior Change", "Actionable Mission"],
+      tags: ["Option 2", "Zone 2 Starter", "7-day Plan", "Behavior Change", "Actionable Mission"],
       journey: [
         ["Step 1","Generate mission","AI สร้างภารกิจที่สอดคล้องกับปัญหาหลักของธุรกิจ"],
         ["Step 2","Daily action","ผู้ใช้ได้รับ task สั้น ๆ ทำได้จริงในแต่ละวัน"],
@@ -582,7 +589,7 @@
     similar: {
       title: "Use Case 4: Learn from Similar Business",
       desc: "ระบบเลือก Case Study หรือศูนย์เรียนรู้ที่ใกล้กับประเภทธุรกิจและปัญหาของผู้ใช้",
-      tags: ["Case-based Learning", "Relevant Match", "Nearby Learning Center", "Inspiration to Action"],
+      tags: ["Future Roadmap", "Case-based Learning", "Relevant Match", "Nearby Learning Center", "Inspiration to Action"],
       journey: [
         ["Step 1","Identify profile","AI ใช้ประเภทกิจการและ pain point ของผู้ใช้"],
         ["Step 2","Search similar","ดึง case study หรือศูนย์เรียนรู้ที่ใกล้เคียงที่สุด"],
@@ -600,7 +607,7 @@
     connect: {
       title: "Use Case 5: Connect to TSI",
       desc: "เมื่อ AI ประเมินว่าต้องการความช่วยเหลือเชิงลึก → สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญได้ทันที",
-      tags: ["Lead Qualification", "Human Handoff", "Project Enrollment", "Appointment Booking"],
+      tags: ["Option 1 + 2", "Lead Qualification", "Project Enrollment", "LINE Next Action"],
       journey: [
         ["Step 1","Detect need","AI พบว่าผู้ใช้ต้องการการช่วยเหลือเชิงลึกกว่าคำแนะนำทั่วไป"],
         ["Step 2","Offer paths","แสดงทางเลือก สมัครโครงการ จองเยี่ยมชม หรือนัดผู้เชี่ยวชาญ"],
